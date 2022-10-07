@@ -6,7 +6,7 @@ export default {
         {
             name: 'image',
             title: 'Image',
-            type: array,
+            type: `array`,
             of: [{ type: 'image' }],
             options: {
                 hotspot: true,

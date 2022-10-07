@@ -27,9 +27,9 @@ pohg:
 
 
 
-comain:
+merp:
 	git add --all
-	git commit -m "${m}"
+	git commit -m "${m} :fire:"
 	git push origin HEAD
 	make merge-main
 

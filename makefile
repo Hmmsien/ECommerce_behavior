@@ -12,6 +12,7 @@ comain:
 
 merge-main:
 	git checkout ${MASTER_BRANCH}
+	git pull
 	git merge ${CURRENT_BRANCH}
 	git push origin HEAD
 	git checkout ${CURRENT_BRANCH}

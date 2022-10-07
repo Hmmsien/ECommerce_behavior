@@ -15,6 +15,17 @@ poh:
 pohn:
 	make poh m="${m}" emoji="tada"
 
+pohf:
+	make poh m="${m}" emoji="hammer"
+
+poha:
+	make poh m="${m}" emoji="goberserk"
+
+pohg:
+	make poh m="${m}" emoji="godmode"
+
+
+
 
 comain:
 	git add --all

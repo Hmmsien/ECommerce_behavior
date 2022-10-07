@@ -4,6 +4,18 @@ MASTER_BRANCH=main
 # Commits everything to the current branch and merges it to master
 #parameters:
 # m: commit message
+
+
+poh:
+	git add --all
+	git commit -m "${m} :${emoji}:"
+	git push origin HEAD
+
+
+pohn:
+	make poh m="${m}" emoji="tada"
+
+
 comain:
 	git add --all
 	git commit -m "${m}"

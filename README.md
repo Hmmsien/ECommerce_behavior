@@ -15,9 +15,13 @@ If we are able to, we will try to create suggestions based on what the users add
 - which company has the highest view rate
 - same thing with the product: which product is trending the most
 
+![image](https://user-images.githubusercontent.com/29577570/194463002-becf6977-1cc6-426b-b967-ed21a459d86e.png)
+
 
 ### Predicting
 - Recommended bundles of products/Suggest Products based on what is on the cart.
+
+![image](https://user-images.githubusercontent.com/29577570/194463035-e2b956d4-d422-40de-ba2a-e0b618d3c44d.png)
 
 
 ## :link: Links 

@@ -17,6 +17,15 @@ merge-main:
 	git checkout ${CURRENT_BRANCH}
 
 
-startfront:
-	cd frontend &&	cd ecommerce &&	yarn run dev
+s-front:
+	cd frontend &&	cd ecommerce &&	npm install --legacy-peer-deps
+	cd frontend &&	cd ecommerce &&	npm run dev
+
+s-sanity:
+	npm install -g @sanity/cli
+	sanity init --coupon javascriptmastery2022
+	
+
+
+
 

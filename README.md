@@ -18,8 +18,6 @@ If we are able to, we will try to create suggestions based on what the users add
 
 ### Predicting
 - Recommended bundles of products/Suggest Products based on what is on the cart.
-- Data Source: eCommerce behavior data from multi category store
-- Describe your data here.  Also, paste a link to your source of data.
 
 
 ## :link: Links 

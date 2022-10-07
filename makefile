@@ -17,5 +17,6 @@ merge-main:
 	git checkout ${CURRENT_BRANCH}
 
 
-
+startfront:
+	cd frontend &&	cd ecommerce &&	yarn run dev
 

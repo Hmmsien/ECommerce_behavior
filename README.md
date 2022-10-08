@@ -15,13 +15,19 @@ If we are able to, we will try to create suggestions based on what the users add
 - which company has the highest view rate
 - same thing with the product: which product is trending the most
 
+![image](https://user-images.githubusercontent.com/29577570/194463002-becf6977-1cc6-426b-b967-ed21a459d86e.png)
+
 
 ### Predicting
 - Recommended bundles of products/Suggest Products based on what is on the cart.
+
+![image](https://user-images.githubusercontent.com/29577570/194463035-e2b956d4-d422-40de-ba2a-e0b618d3c44d.png)
 
 
 ## :link: Links 
 - [Data Link](https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store)
 - [Report](https://docs.google.com/document/d/1-AN7Q14IRxsmWlQc4YNZQcWyCHCQpIh75ztJQpcqoKw/edit#)
 - [MHN | Project Document DS Fall 2022](https://docs.google.com/document/d/1UGFoOpXOLuEEgQDzaamucS1bzFxVzQeH34U3glXncp0/edit#)
+- [Figma](https://www.figma.com/file/bMmUmMtKJt9aUwKWHKW5LH/Data-Science?node-id=0%3A1)
+- [Project Documentation](https://www.notion.so/wngnelson/Projects-89969902acca48dfbb7c83aa35dd0f34)
 

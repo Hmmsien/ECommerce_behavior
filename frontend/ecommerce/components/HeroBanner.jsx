@@ -3,12 +3,14 @@ import Link from 'next/link'
 
 
 
-const HeroBanner = () => {
+const HeroBanner = ({HeroBanner}) => {
     return (
         <div className='hero-banner-container' >
             <div>
-                <p className="beats-solo">Small text</p>
-                <h3>MID TEXT</h3>
+                <p className="beats-solo">
+                    {HeroBanner.smallText}
+                </p>
+                <h3>{HeroBanner.midText}</h3>
                 <img src="" alt="headphones" className='hero-banner-image' />
 
                 <div>

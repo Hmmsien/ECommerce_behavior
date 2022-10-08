@@ -47,6 +47,9 @@ s-front:
 s-sanity:
 	cd backend && cd ecommerce && sanity start
 
+m-sanity:
+	cd backend && cd ecommerce && sanity manage
+
 set-sanity:
 	npm install -g @sanity/cli
 	sanity init --coupon javascriptmastery2022

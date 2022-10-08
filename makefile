@@ -26,14 +26,7 @@ pohg:
 
 
 
-
 merp:
-	git add --all
-	git commit -m "${m} :fire:"
-	git push origin HEAD
-	make merge-main
-
-merge-main:
 	git checkout ${MASTER_BRANCH}
 	git pull
 	git merge ${CURRENT_BRANCH}
@@ -46,6 +39,12 @@ s-front:
 	cd frontend &&	cd ecommerce &&	npm run dev
 
 s-sanity:
+	cd backend && cd ecommerce && sanity start
+
+m-sanity:
+	cd backend && cd ecommerce && sanity manage
+
+set-sanity:
 	npm install -g @sanity/cli
 	sanity init --coupon javascriptmastery2022
 	

@@ -26,14 +26,7 @@ pohg:
 
 
 
-
 merp:
-	git add --all
-	git commit -m "${m} :fire:"
-	git push origin HEAD
-	make merge-main
-
-merge-main:
 	git checkout ${MASTER_BRANCH}
 	git merge ${CURRENT_BRANCH}
 	git push origin HEAD

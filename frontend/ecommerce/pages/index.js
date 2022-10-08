@@ -1,10 +1,13 @@
 import React from 'react'
 
+
+
+
 const Home = () => {
   return (
     <>
       Hero Banner
-      
+
       <div className='products-heading' >
         <h2>Best Selling Products</h2>
         <p>Speakers of many vairations</p>

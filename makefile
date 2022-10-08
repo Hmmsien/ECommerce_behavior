@@ -28,8 +28,8 @@ pohg:
 
 merp:
 	git checkout ${MASTER_BRANCH}
-	git pull
 	git merge ${CURRENT_BRANCH}
+	git pull
 	git push origin HEAD
 	git checkout ${CURRENT_BRANCH}
 

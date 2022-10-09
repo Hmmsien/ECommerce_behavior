@@ -47,6 +47,12 @@ m-sanity:
 set-sanity:
 	npm install -g @sanity/cli
 	sanity init --coupon javascriptmastery2022
+
+push:
+	git pull
+	git add *
+	git commit -m "${m} :"
+	git push
 	
 
 

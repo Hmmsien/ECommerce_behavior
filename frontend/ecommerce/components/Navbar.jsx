@@ -15,7 +15,7 @@ function Navbar() {
     <div className='navbar-container' >
       <p className='="logo' >
         <Link href="/" >JSM Headphones </Link>
-        <Link  className="nav-link" href="/" >| Graphics</Link>
+        <Link  className="nav-link" href="/graphics" >| Graphics</Link>
       </p>
       <button type="button" className='cart-icon' onClick={() => setShowCart(true)} >
         <AiOutlineShopping />

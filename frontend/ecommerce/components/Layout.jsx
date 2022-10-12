@@ -8,7 +8,7 @@ function Layout({children}) {
   return (
     <div className='layout' >
       <head>
-        <title>JS Mastery Store</title>
+        <title>Ecommerce Behavior Demo</title>
       </head>
       <header>
         <Navbar />

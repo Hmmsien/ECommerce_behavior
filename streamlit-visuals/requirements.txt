@@ -1,0 +1,7 @@
+pandas
+base58
+matplotlib
+numpy
+yfinance
+lxml
+seaborn

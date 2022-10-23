@@ -39,6 +39,7 @@ s-front:
 	cd frontend &&	cd ecommerce &&	npm run dev
 
 s-sanity:
+	echo DONT USE THIS xd
 	cd backend && cd ecommerce && sanity start
 
 m-sanity:

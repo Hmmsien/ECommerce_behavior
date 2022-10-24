@@ -4,7 +4,9 @@ import base64
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-import yfinance as yf
+import plotly.express as px
+
+TOP_X = 20
 
 hide_streamlit_style = """
             <style>
@@ -14,12 +16,10 @@ hide_streamlit_style = """
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-st.title('S&P 500 App No Bottom')
+st.title('Interactive Visualizations')
 
 st.markdown("""
-This app retrieves the list of the **S&P 500** (from Wikipedia) and its corresponding **stock closing price** (year-to-date)!
-* **Python libraries:** base64, pandas, streamlit, numpy, matplotlib, seaborn
-* **Data source:** [Wikipedia](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies).
+This app will retrieve data for playing with visualizations.
 """)
 
 st.sidebar.header('User Input Features')
@@ -28,63 +28,65 @@ st.sidebar.header('User Input Features')
 #
 @st.cache
 def load_data():
-    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-    html = pd.read_html(url, header = 0)
-    df = html[0]
+    # It should be able to pull data from it. 
+    df = pd.read_csv('data/2019-Nov.csv',nrows = 1000000)
     return df
 
 df = load_data()
-sector = df.groupby('GICS Sector')
+df
+def getstr(x):
+    return str(x)
 
-# Sidebar - Sector selection
-sorted_sector_unique = sorted( df['GICS Sector'].unique() )
-selected_sector = st.sidebar.multiselect('Sector', sorted_sector_unique, sorted_sector_unique)
+st.write("### Top User activity.")
 
-# Filtering data
-df_selected_sector = df[ (df['GICS Sector'].isin(selected_sector)) ]
+user_group = df.groupby("user_id")
 
-st.header('Display Companies in Selected Sector')
-st.write('Data Dimension: ' + str(df_selected_sector.shape[0]) + ' rows and ' + str(df_selected_sector.shape[1]) + ' columns.')
-st.dataframe(df_selected_sector)
+usercount = user_group["user_id"].agg(["count"]).sort_values(by=["count"], ascending=False)
 
-# Download S&P500 data
-# https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
-def filedownload(df):
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    href = f'<a href="data:file/csv;base64,{b64}" download="SP500.csv">Download CSV File</a>'
-    return href
 
-st.markdown(filedownload(df_selected_sector), unsafe_allow_html=True)
+usercount = usercount[:TOP_X]
+usercount["index"] = usercount.index
+usercount["index"] = usercount["index"].apply(getstr)
+fig = px.bar(usercount, x="index", y="count", color="index")
+fig
 
-# https://pypi.org/project/yfinance/
 
-data = yf.download(
-        tickers = list(df_selected_sector[:10].Symbol),
-        period = "ytd",
-        interval = "1d",
-        group_by = 'ticker',
-        auto_adjust = True,
-        prepost = True,
-        threads = True,
-        proxy = None
-    )
 
-# Plot Closing Price of Query Symbol
-def price_plot(symbol):
-  df = pd.DataFrame(data[symbol].Close)
-  df['Date'] = df.index
-  plt.fill_between(df.Date, df.Close, color='skyblue', alpha=0.3)
-  plt.plot(df.Date, df.Close, color='skyblue', alpha=0.8)
-  plt.xticks(rotation=90)
-  plt.title(symbol, fontweight='bold')
-  plt.xlabel('Date', fontweight='bold')
-  plt.ylabel('Closing Price', fontweight='bold')
-  return st.pyplot()
+# gettopatyearcount(df, )
 
-num_company = st.sidebar.slider('Number of Companies', 1, 5)
 
-if st.button('Show Plots'):
-    st.header('Stock Closing Price')
-    for i in list(df_selected_sector.Symbol)[:num_company]:
-        price_plot(i)
+# No to get them over time what you need to do is to be able to: Get an item and then 
+# You want to calculate the top 20 every day, and aggregate that into the dateframe
+
+
+# There is a porblem Hudson, all the first millon data are from 2019-11-01.which is why I believe I should straight create an API end point to run all this on its own. usign 
+def gettopatyearcount(df, event_time_target):
+    cond = df["event_time"] > event_time_target
+    filtered = df[cond]
+    user_group = filtered.groupby("user_id")
+    usercount = user_group["user_id"].agg(["count"]).sort_values(by=["count"], ascending=False)
+    usercount = usercount[:TOP_X]
+    usercount["index"] = usercount.index
+    usercount["index"] = usercount["index"].apply(getstr)
+
+
+
+
+
+
+# fig = px.bar(df, x="continent", y="pop", color="continent",
+#   animation_frame="year", animation_group="country", range_y=[0,4000000000])
+# fig
+
+
+df = px.data.gapminder().query("year == 2007").query("continent == 'Europe'")
+df.loc[df['pop'] < 2.e6, 'country'] = 'Other countries' # Represent only large countries
+fig = px.pie(df, values='pop', names='country', title='Population of European continent')
+fig
+
+
+df = px.data.gapminder()
+# print(df["continent", "pop"])
+fig = px.bar(df, x="continent", y="pop", color="continent",
+  animation_frame="year", animation_group="country", range_y=[0,4000000000])
+fig

@@ -14,15 +14,14 @@ function Navbar() {
   return (
     <div className='navbar-container' >
       <p className='="logo' >
-<<<<<<< HEAD
+
         <Link href="/" >JSM Headphones </Link>
         <Link  className="nav-link" href="/graphics" >| Graphics</Link>
-=======
         <Link href="/" >Ecommerce </Link>
         <Link  className="nav-link" href="/graphics" >| Graphics </Link>
->>>>>>> 4045e76ae30243cad4c64767367d9778b949a88f
         <Link  className="nav-link" href="/about" >| About</Link>
       </p>
+      
       <button type="button" className='cart-icon' onClick={() => setShowCart(true)} >
         <AiOutlineShopping />
         <span className="cart-item-qty">
@@ -31,7 +30,6 @@ function Navbar() {
       </button>
 
       {showCart && <Cart />}
-
     </div>
   )
 }

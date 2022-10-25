@@ -30,6 +30,8 @@ function about() {
             highlightOnHover
           />
         </DataTableExtensions>
+
+        
     </div>  
   );
 }

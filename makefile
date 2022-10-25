@@ -53,6 +53,10 @@ push:
 	git add *
 	git commit -m "${m} :"
 	git push
+
+show_dashboard:
+	pip install streamlit && pip install plotly
+	cd dashboard && streamlit run dataTable.py
 	
 
 

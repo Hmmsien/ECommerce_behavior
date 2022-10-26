@@ -5,6 +5,8 @@ function mfaq() {
     <div>
         <h1>FAQ</h1>
 
+        <p>asdasd</p>
+
     </div>
   )
 }

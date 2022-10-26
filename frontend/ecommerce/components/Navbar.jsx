@@ -18,7 +18,8 @@ function Navbar() {
         <Link href="/" >Ecommerce </Link>
         <Link  className="nav-link" href="/graphics" >| Graphics </Link>
 
-        <Link  className="nav-link" href="/about" >| About</Link>
+        <Link  className="nav-link" href="/about" >| About </Link>
+        <Link  className="nav-link" href="/mfaq" >| Faq </Link>
       </p>
       <button type="button" className='cart-icon' onClick={() => setShowCart(true)} >
         <AiOutlineShopping />

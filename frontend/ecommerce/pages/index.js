@@ -8,8 +8,6 @@ const Home = ({ products, bannerData }) => {
   return (
     <div>
 
-      
-
       <HeroBanner HeroBanner={bannerData.length && bannerData[0]} />
       {console.log("bannerdata", bannerData, "products", products)}
 

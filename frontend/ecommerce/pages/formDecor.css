@@ -1,0 +1,99 @@
+.menuu{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    right: 200px;
+    }
+  li{
+    float:left;
+    }
+  nav a{
+    width: 120px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    font-size: 17px;
+    color: black;
+    padding: 20px 10px;
+    font-family: 'Times New Roman', Times, serif;
+    }
+  
+  nav a:hover{
+    background-color: white;
+    color: black;
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: #EECDA3; 
+    background: linear-gradient(to left, #EF629F, #EECDA3); 
+    padding: 10px;
+}
+
+.table{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 450px;
+    width: 320px;
+    display: block;
+    outline: none;
+    border-radius: 5px;
+    border: 1x solid #ccc;
+    padding-left: 5px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    }
+
+#nameInput{
+    width: 250px;
+    height: 40px;
+}
+#addressInput{
+    width: 300px;
+    height: 50px;
+}
+#numberInput{
+    width: 250px;
+    height: 40px;
+}
+#lehangaInput{
+    width: 250px;
+    height: 40px;
+}
+#cardInput{
+    width: 250px;
+    height: 40px;
+}
+#cvvInput{
+    width: 200px;
+    height: 40px;
+}
+#reset{
+    width: 100px;
+    height: 40px;
+   
+}
+#submit{
+    width: 100px;
+    height: 40px;
+}
+
+body{
+   margin: 0;
+    }
+
+nav{
+    width: 100%;
+    overflow: auto;
+    text-align: center;
+}

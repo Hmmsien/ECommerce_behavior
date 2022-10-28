@@ -1,14 +1,22 @@
-import React from 'react'
+
+/*import React from 'react';
+
+
 
 function mfaq() {
-  return (
-    <div>
-        <h1>FAQ</h1>
-
-        <p>asdasd</p>
-
-    </div>
-  )
+  
+  
+return (
+  <div className="App">
+    <h1>FAQ Page</h1>
+  </div>
+    
+  );
 }
 
-export default mfaq
+
+export default mfaq;*/
+
+
+
+

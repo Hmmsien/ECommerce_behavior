@@ -1,0 +1,87 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Service</title>
+    <link rel="stylesheet" href="contact.css" />
+  </head>
+  <body>
+    <h1 align="center" id="nish">ECommerce</h1>
+    <div class="manu3">
+      <nav class="manu1">
+        <ul class="menu">
+          <li><a href="index.html"> HOME</a></li>
+          <li><a href="aboutUsInfo.html">ABOUT US</a></li>
+          <li><a href="orderForm.html">ORDER</a></li>
+          <li><a href="Question.html">QUESTIONS</a></li>
+          <li><a href="contactUs.html">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+    <h3 id="msg">How can we HELP you today?!</h3>
+    <br />
+    <p>Please send us a Message!</p>
+
+    <form action="message.php" method="post">
+      <table class="table">
+        <tr class="orderForm">
+          <td><label for="name">Name:</label></td>
+          <td>
+            <input
+              type="text"
+              name="name"
+              id="Cname"
+              placeholder="Your name:"
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="email">Your email:</label></td>
+          <td>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Your email address.."
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="subject">Subject:</label></td>
+          <td>
+            <input
+              type="text"
+              name="subject"
+              id="subject"
+              placeholder="subject"
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="phone">Phone Number</label></td>
+          <td><input type="text" id="phone" name="phone" required /></td>
+        </tr>
+
+        <tr>
+          <td><label for="message">Message:</label></td>
+          <td>
+            <textarea
+              name="message"
+              id="message"
+              cols="50"
+              rows="10"
+              placeholder="Write your concerns here.."
+            ></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="submit" name="send" id="send" /></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

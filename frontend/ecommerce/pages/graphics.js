@@ -10,4 +10,4 @@ function graphics() {
   )
 }
 
-export default graphics
+export default graphics     

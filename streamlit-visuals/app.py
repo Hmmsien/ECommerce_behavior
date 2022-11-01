@@ -67,13 +67,26 @@ fig
 
 
 def selectTopBrands(df, day=1, month=10, event_type = "purchase", top=10):
-    condFilter = (df["day"] == day) & (df["month"] == month) & (df["event_type"] == event_type)
+    condFilter = (df["day"] <= day) & (df["month"] == month) & (df["event_type"] == event_type)
     df = df[condFilter]
     view_top_sellers = df.groupby('brand').brand.agg([len]).sort_values(by="len", ascending=False)
     view_top_sellers.reset_index(inplace=True)
     view_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
     return view_top_sellers.head(top)
 
+def createAggTimeDataframe(df, cumulDF = pd.DataFrame(), end=31, month=10, event_type="purchase", top=10):
+    dataFrameList = [cumulDF]
+    for day in range(end):
+        dayDF = selectTopBrands(df, day=day, month=month, event_type=event_type, top=top)
+        dayDF["month"] = month
+        dayDF["day"] = day
+        dataFrameList.append(dayDF)
+    return pd.concat(dataFrameList)
+
+
+# print("Reduced DF", retDF)
+
+# retDF
 
 fig = px.pie(selectTopBrands(df, day=1, event_type="view"), values='# sales', names='brand', title='Top 10 brands from Viewed')
 fig
@@ -92,15 +105,14 @@ def gettopatyearcount(df, event_time_target):
     usercount["index"] = usercount["index"].apply(getstr)
 
 
-df = px.data.gapminder()
-# print("Moving Charts",df)
-# print(df["continent", "pop"])
-fig = px.bar(df, x="continent", y="pop", color="continent",
-  animation_frame="year", animation_group="country", range_y=[0,4000000000])
+
+retDF = createAggTimeDataframe(df)
+fig = px.bar(retDF, x="brand", y="# sales", color="brand",
+  animation_frame="day", animation_group="brand", range_y=[0,31])
+# fig.update_layout(yaxis_range=[0, 300])
+fig.update_yaxes(autorange=True)
+
+fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
 fig
 
-
-# fig = px.bar(df, x="continent", y="pop", color="continent",
-#   animation_frame="year", animation_group="country", range_y=[0,4000000000])
-# fig
 

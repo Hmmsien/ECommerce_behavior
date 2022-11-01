@@ -2,12 +2,15 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from PIL import Image
+import plotly.express as px
 
 st.set_page_config(layout="wide")
 
 header = st.container()
 dataset = st.container()
 features = st.container()
+image = Image.open('../img/profile.jpg')
 
 st.markdown(
     """"
@@ -20,15 +23,22 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+
+with st.sidebar:
+    st.subheader('About')
+    st.markdown('Visualization & Analyze data about e-commerce customer behavior.')
+    st.write("Data source: [Kaggle](https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store)")
+
 with header:
     st.title('ECommerce_behavior')
-    st.text('Data Science visualization project using ecommerce data. Analyze data which is about e-commerce customer behavior.')  
-
+    st.image(image)
+    
 with dataset:
     st.header('eCommerce behavior data from multi category store') 
 
     # Loading data
-    df = pd.read_csv('../data/2019-Nov.csv', nrows=10000, error_bad_lines=False)
+    df = pd.read_csv('../data/2019-Nov.csv', nrows=10000000, error_bad_lines=False)
     st.write(df.head(10))
 
     # Data Cleaning
@@ -37,6 +47,13 @@ with dataset:
     df.duplicated().sum()
     df = df.drop_duplicates()
     df = df.dropna()
+
+    # Data type
+    df_event_type = df['event_type'].value_counts().rename_axis('event_type_group').reset_index(name='counts')
+    fig = px.pie(df_event_type, values='counts', names='event_type_group')
+    fig.update_traces(
+        textinfo='percent+label')
+    st.plotly_chart(fig)
 
 with features:
 
@@ -71,7 +88,7 @@ with features:
               1, 2)
 
     # Use `hole` to create a donut-like pie chart
-    fig.update_traces(hole=.4, hoverinfo="label+percent+name")
+    fig.update_traces(hole=.4, hoverinfo="label+percent+name", textinfo='percent+label')
 
     fig.update_layout(
         width=1000, height=500)

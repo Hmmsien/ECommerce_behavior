@@ -28,11 +28,25 @@ st.sidebar.header('User Input Features')
 #
 @st.cache
 def load_data():
-    # It should be able to pull data from it. 
-    df = pd.read_csv('data/2019-Nov.csv',nrows = 1000000)
+
+    # n = 1000  # every 100th line = 1% of the lines
+    # df = pd.read_csv('data/2019-Oct.csv', header=0, skiprows=lambda i: i % n != 0)
+    # # It should be able to pull data from it. 
+    df = pd.read_csv('dist-data/2019-Oct-dist.csv',nrows = 1000000)
+    df['event_time'] = pd.to_datetime(df['event_time'])
+    
+    df['year']= df['event_time'].dt.year
+    df['month']= df['event_time'].dt.month
+    df['day']= df['event_time'].dt.day
+    
     return df
 
 df = load_data()
+# df.to_csv("data/2019-Oct-dist.csv", index=False)
+# df["date"] = str(df["event_time"])[8:9]
+
+
+# df["date"]
 df
 def getstr(x):
     return str(x)
@@ -52,11 +66,34 @@ fig
 
 
 
-# gettopatyearcount(df, )
+# most customer purchased
+purchased = df.loc[df.event_type == 'purchase']
+purchases_with_brands = purchased.loc[purchased.brand.notnull()]
+
+purchased_top_sellers = purchases_with_brands.groupby('brand').brand.agg([len]).sort_values(by="len", ascending=False)
+purchased_top_sellers.reset_index(inplace=True)
+purchased_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
+
+# most customer view
+view = df.loc[df.event_type == 'view']
+view_with_brands = view.loc[view.brand.notnull()]
+
+view_top_sellers = view_with_brands.groupby('brand').brand.agg([len]).sort_values(by="len", ascending=False)
+view_top_sellers.reset_index(inplace=True)
+view_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
 
 
-# No to get them over time what you need to do is to be able to: Get an item and then 
-# You want to calculate the top 20 every day, and aggregate that into the dateframe
+
+
+fig = px.pie(purchased_top_sellers.head(10), values='# sales', names='brand', title='Top 10 brands from Viewed')
+
+fig
+
+
+fig = px.pie(view_top_sellers.head(10), values='# sales', names='brand', title='Top 10 brands from Purchased')
+
+fig
+
 
 
 # There is a porblem Hudson, all the first millon data are from 2019-11-01.which is why I believe I should straight create an API end point to run all this on its own. usign 
@@ -69,24 +106,11 @@ def gettopatyearcount(df, event_time_target):
     usercount["index"] = usercount.index
     usercount["index"] = usercount["index"].apply(getstr)
 
-
-
-
-
-
-# fig = px.bar(df, x="continent", y="pop", color="continent",
-#   animation_frame="year", animation_group="country", range_y=[0,4000000000])
-# fig
-
-
-df = px.data.gapminder().query("year == 2007").query("continent == 'Europe'")
-df.loc[df['pop'] < 2.e6, 'country'] = 'Other countries' # Represent only large countries
-fig = px.pie(df, values='pop', names='country', title='Population of European continent')
-fig
-
+print("Moving Charts",df)
 
 df = px.data.gapminder()
 # print(df["continent", "pop"])
 fig = px.bar(df, x="continent", y="pop", color="continent",
   animation_frame="year", animation_group="country", range_y=[0,4000000000])
 fig
+

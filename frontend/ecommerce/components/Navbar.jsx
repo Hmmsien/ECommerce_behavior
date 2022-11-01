@@ -20,6 +20,7 @@ function Navbar() {
 
         <Link  className="nav-link" href="/about" >| About </Link>
         <Link  className="nav-link" href="/mfaq" >| Faq </Link>
+        <Link  className="nav-link" href="/contact-us" >| Contact Us </Link>
       </p>
       <button type="button" className='cart-icon' onClick={() => setShowCart(true)} >
         <AiOutlineShopping />

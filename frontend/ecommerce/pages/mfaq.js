@@ -1,5 +1,5 @@
 
-/*import React from 'react';
+import React from 'react';
 
 
 
@@ -15,7 +15,7 @@ return (
 }
 
 
-export default mfaq;*/
+export default mfaq;
 
 
 

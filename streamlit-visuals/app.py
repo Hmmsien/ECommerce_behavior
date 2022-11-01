@@ -125,15 +125,32 @@ def gettopatyearcount(df, event_time_target):
 
 
 
-retDF = createAggBrandTimeDataframe(df)
+retDF = createAggBrandTimeDataframe(df, event_type="purchase")
+
+
 fig = px.bar(retDF, x="brand", y="# sales", color="brand",
   animation_frame="day", animation_group="brand", range_y=[0,31])
 # fig.update_layout(yaxis_range=[0, 300])
 fig.update_yaxes(autorange=True)
 
 fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+
+st.write("## Best Performing Brands")
+
+st.write("### Most Purchased Brands")
 fig
 
+viewDF = createAggBrandTimeDataframe(df, event_type="view")
+
+fig = px.bar(viewDF, x="brand", y="# sales", color="brand",
+  animation_frame="day", animation_group="brand", range_y=[0,31])
+# fig.update_layout(yaxis_range=[0, 300])
+fig.update_yaxes(autorange=True)
+
+fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+
+st.write("### Most Viewed Brands")
+fig
 
 userDF = createAggUserTimeDataframe(df)
 fig = px.bar(userDF, x="index", y="count", color="index",
@@ -142,6 +159,9 @@ fig = px.bar(userDF, x="index", y="count", color="index",
 fig.update_yaxes(autorange=True)
 
 fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+
+
+st.write("### MVP Customers over time")
 fig
 
 

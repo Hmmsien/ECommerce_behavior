@@ -3,6 +3,8 @@ import '../styles/globals.css'
 import { Layout } from '../components';
 import { Toaster } from 'react-hot-toast'
 import { StateContext } from '../context/StateContext';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import React from 'react'
 

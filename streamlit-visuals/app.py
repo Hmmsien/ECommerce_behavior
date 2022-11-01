@@ -53,28 +53,47 @@ def getstr(x):
 
 st.write("### Top User activity.")
 
-user_group = df.groupby("user_id")
-
-usercount = user_group["user_id"].agg(["count"]).sort_values(by=["count"], ascending=False)
 
 
-usercount = usercount[:TOP_X]
-usercount["index"] = usercount.index
-usercount["index"] = usercount["index"].apply(getstr)
+
+def getTopUsers(df, month=10, day=31, top=10):
+    condFilter = (df["month"] <= month) & (df["day"] <= day)
+    user_group = df[condFilter].groupby("user_id")
+    usercount = user_group["user_id"].agg(["count"]).sort_values(by=["count"], ascending=False)
+
+
+    usercount = usercount[:TOP_X]
+    usercount["index"] = usercount.index
+    usercount["index"] = usercount["index"].apply(getstr)
+    return usercount.head(top)
+
+
+def createAggUserTimeDataframe(df, cumulDF = pd.DataFrame(), end=31, month=10, top=10):
+    dataFrameList = [cumulDF]
+    for day in range(end):
+        dayDF = getTopUsers(df, day=day, month=month,  top=top)
+        dayDF["month"] = month
+        dayDF["day"] = day
+        dataFrameList.append(dayDF)
+    return pd.concat(dataFrameList)
+
+usercount= getTopUsers(df)
 fig = px.bar(usercount, x="index", y="count", color="index")
 fig
 
 
 
-def selectTopBrands(df, day=1, month=10, event_type = "purchase", top=10):
-    condFilter = (df["day"] <= day) & (df["month"] == month) & (df["event_type"] == event_type)
+def selectTopBrands(df, day=31, month=10, event_type = "purchase", top=10):
+    condFilter = (df["day"] <= day) & (df["month"] <= month) & (df["event_type"] == event_type)
     df = df[condFilter]
     view_top_sellers = df.groupby('brand').brand.agg([len]).sort_values(by="len", ascending=False)
     view_top_sellers.reset_index(inplace=True)
     view_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
     return view_top_sellers.head(top)
 
-def createAggTimeDataframe(df, cumulDF = pd.DataFrame(), end=31, month=10, event_type="purchase", top=10):
+
+
+def createAggBrandTimeDataframe(df, cumulDF = pd.DataFrame(), end=31, month=10, event_type="purchase", top=10):
     dataFrameList = [cumulDF]
     for day in range(end):
         dayDF = selectTopBrands(df, day=day, month=month, event_type=event_type, top=top)
@@ -84,11 +103,7 @@ def createAggTimeDataframe(df, cumulDF = pd.DataFrame(), end=31, month=10, event
     return pd.concat(dataFrameList)
 
 
-# print("Reduced DF", retDF)
-
-# retDF
-
-fig = px.pie(selectTopBrands(df, day=1, event_type="view"), values='# sales', names='brand', title='Top 10 brands from Viewed')
+fig = px.pie(selectTopBrands(df, event_type="view"), values='# sales', names='brand', title='Top 10 brands from Viewed')
 fig
 
 fig = px.pie(selectTopBrands(df, event_type="purchase"), values='# sales', names='brand', title='Top 10 brands from Purchased')
@@ -106,7 +121,7 @@ def gettopatyearcount(df, event_time_target):
 
 
 
-retDF = createAggTimeDataframe(df)
+retDF = createAggBrandTimeDataframe(df)
 fig = px.bar(retDF, x="brand", y="# sales", color="brand",
   animation_frame="day", animation_group="brand", range_y=[0,31])
 # fig.update_layout(yaxis_range=[0, 300])
@@ -114,5 +129,16 @@ fig.update_yaxes(autorange=True)
 
 fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
 fig
+
+
+userDF = createAggUserTimeDataframe(df)
+fig = px.bar(userDF, x="index", y="count", color="index",
+  animation_frame="day", animation_group="index", range_y=[0,31])
+# fig.update_layout(yaxis_range=[0, 300])
+fig.update_yaxes(autorange=True)
+
+fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+fig
+
 
 

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import plotly.express as px
+from pathlib import Path
 
 TOP_X = 20
 
@@ -32,7 +33,10 @@ def load_data():
     # n = 1000  # every 100th line = 1% of the lines
     # df = pd.read_csv('data/2019-Oct.csv', header=0, skiprows=lambda i: i % n != 0)
     # # It should be able to pull data from it. 
-    df = pd.read_csv('dist-data/2019-Oct-dist.csv',nrows = 1000000)
+    # df = pd.read_csv('dist-data/2019-Oct-dist.csv',nrows = 1000000)
+    
+    file = Path(__file__).parents[1] / 'streamlit-visuals/dist-data/2019-Oct-dist.csv'
+    df = pd.read_csv(file, nrows = 1000000)
     df['event_time'] = pd.to_datetime(df['event_time'])
     
     df['year']= df['event_time'].dt.year

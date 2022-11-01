@@ -66,35 +66,20 @@ fig
 
 
 
-# most customer purchased
-purchased = df.loc[df.event_type == 'purchase']
-purchases_with_brands = purchased.loc[purchased.brand.notnull()]
-
-purchased_top_sellers = purchases_with_brands.groupby('brand').brand.agg([len]).sort_values(by="len", ascending=False)
-purchased_top_sellers.reset_index(inplace=True)
-purchased_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
-
-# most customer view
-view = df.loc[df.event_type == 'view']
-view_with_brands = view.loc[view.brand.notnull()]
-
-view_top_sellers = view_with_brands.groupby('brand').brand.agg([len]).sort_values(by="len", ascending=False)
-view_top_sellers.reset_index(inplace=True)
-view_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
+def selectTopBrands(df, day=1, month=10, event_type = "purchase", top=10):
+    condFilter = (df["day"] == day) & (df["month"] == month) & (df["event_type"] == event_type)
+    df = df[condFilter]
+    view_top_sellers = df.groupby('brand').brand.agg([len]).sort_values(by="len", ascending=False)
+    view_top_sellers.reset_index(inplace=True)
+    view_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
+    return view_top_sellers.head(top)
 
 
-
-
-fig = px.pie(purchased_top_sellers.head(10), values='# sales', names='brand', title='Top 10 brands from Viewed')
-
+fig = px.pie(selectTopBrands(df, day=1, event_type="view"), values='# sales', names='brand', title='Top 10 brands from Viewed')
 fig
 
-
-fig = px.pie(view_top_sellers.head(10), values='# sales', names='brand', title='Top 10 brands from Purchased')
-
+fig = px.pie(selectTopBrands(df, event_type="purchase"), values='# sales', names='brand', title='Top 10 brands from Purchased')
 fig
-
-
 
 # There is a porblem Hudson, all the first millon data are from 2019-11-01.which is why I believe I should straight create an API end point to run all this on its own. usign 
 def gettopatyearcount(df, event_time_target):
@@ -106,11 +91,16 @@ def gettopatyearcount(df, event_time_target):
     usercount["index"] = usercount.index
     usercount["index"] = usercount["index"].apply(getstr)
 
-print("Moving Charts",df)
 
 df = px.data.gapminder()
+# print("Moving Charts",df)
 # print(df["continent", "pop"])
 fig = px.bar(df, x="continent", y="pop", color="continent",
   animation_frame="year", animation_group="country", range_y=[0,4000000000])
 fig
+
+
+# fig = px.bar(df, x="continent", y="pop", color="continent",
+#   animation_frame="year", animation_group="country", range_y=[0,4000000000])
+# fig
 

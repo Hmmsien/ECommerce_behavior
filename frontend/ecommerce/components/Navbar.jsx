@@ -10,6 +10,8 @@ import { useStateContext } from '../context/StateContext';
 function Navbar() {
 
   const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const [AIModel, setAIModel] = React.useState('Change Recommendation Model');
+
 
   return (
     <div className='navbar-container' >
@@ -22,8 +24,11 @@ function Navbar() {
         <Link  className="nav-link" href="/mfaq" >| Faq </Link>
         <Link  className="nav-link" href="/contact-us" >| Contact Us </Link>
       </p>
+
+      
       <button type="button" className='cart-icon' onClick={() => setShowCart(true)} >
         <AiOutlineShopping />
+        
         <span className="cart-item-qty">
           {totalQuantities}
         </span>

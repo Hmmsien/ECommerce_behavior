@@ -9,6 +9,10 @@ from pathlib import Path
 
 TOP_X = 20
 
+st.set_page_config(
+    page_title = "About Us"
+)
+
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}

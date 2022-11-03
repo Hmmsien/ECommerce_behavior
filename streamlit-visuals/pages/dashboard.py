@@ -23,7 +23,7 @@ st.markdown("""
 This app will retrieve data for playing with visualizations.
 """)
 
-st.sidebar.header('User Input Features')
+#st.sidebar.header('User Input Features')
 
 # Web scraping of S&P 500 data
 #
@@ -35,7 +35,7 @@ def load_data():
     # # It should be able to pull data from it. 
     # df = pd.read_csv('dist-data/2019-Oct-dist.csv',nrows = 1000000)
     
-    file = Path(__file__).parents[1] / 'streamlit-visuals/dist-data/2019-Oct-dist.csv'
+    file = Path(__file__).parent.parent.resolve() / 'dist-data/2019-Oct-dist.csv'
     df = pd.read_csv(file, nrows = 1000000)
     df['event_time'] = pd.to_datetime(df['event_time'])
     
@@ -51,14 +51,10 @@ df = load_data()
 
 
 # df["date"]
-df
 def getstr(x):
     return str(x)
 
 st.write("### Top User activity.")
-
-
-
 
 def getTopUsers(df, month=10, day=31, top=10):
     condFilter = (df["month"] <= month) & (df["day"] <= day)

@@ -1,0 +1,92 @@
+body{
+    background: #FFAFBD;  
+    background: linear-gradient(to right, #ffc3a0, #FFAFBD); 
+    }
+  
+  table{
+      align-content: center;
+      }
+  #Cname{
+      width: 600px;
+      height: 50px;
+  }
+  
+  #message{
+      width: 600px;
+      height: 200px;
+  }
+  #subject{
+      width: 600px;
+      height: 50px;
+  }
+  
+  #phone{
+      width: 600px;
+      height: 50px;
+  }
+  #email{
+      width: 600px;
+      height: 50px;
+  }
+  
+  #msg{
+      border-top: 2px solid black;
+  }
+  
+  /*This is for top navigaror of the page */
+  .manu3{
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      box-sizing: border-box;
+    }
+    
+    body{
+      margin: 0;
+      margin: 20px;
+    }
+  
+    nav{
+      width: 100%;
+      overflow: auto;
+      text-align: center;
+      border-top: 2px solid black;
+    }
+  
+    .menu{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      right: 200px;
+    }
+  
+    li{
+      float:left;
+    }
+  
+    nav a{
+      width: 120px;
+      display:block;
+      text-decoration: none;
+      text-align: center;
+      font-size: 17px;
+      color: black;
+      padding: 20px 10px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    
+    nav a:hover{
+      background-color: lightcoral;
+      color: black;
+    }
+    
+  #nish{
+    font-family: 'Brush Script MT', cursive;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  
+  
+  
+  

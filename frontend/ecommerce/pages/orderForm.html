@@ -1,0 +1,139 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PHP Test</title>
+    <link rel="stylesheet" href="formDecor.css" />
+  </head>
+  <body>
+    <form action="project.php" method="post">
+       
+      <div class="form">
+        <div class="title">
+          <h1 id="order" align="center">
+            <b> PLACE AN ORDER </b>
+          </h1>
+          <br />
+         
+          <div class="manuT" align="center">
+            <nav class="manuO">
+              <ul class="menuu">
+                <li><a href="index.html"> HOME</a></li>
+                <li><a href="aboutUsInfo.html">ABOUT US</a></li>
+                <li><a href="orderForm.html">ORDER</a></li>
+                <li><a href="Question.html">QUESTIONS</a></li>
+                <li><a href="contactUs.html">CONTACT</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <br /><br />
+
+        <table class="table">
+          <tr class="orderForm">
+            <td><label for="name">Name:</label></td>
+            <td>
+              <input
+                type="text"
+                name="name"
+                id="nameInput"
+                placeholder="Enter your name"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="address">Your_Address:</label></td>
+            <td>
+              <input
+                name="address"
+                id="addressInput"
+                cols="25"
+                rows="3"
+                placeholder="Enter your home Address here"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="number">Contact_Number:</label></td>
+            <td>
+              <input
+                type="text"
+                name="contact"
+                id="numberInput"
+                placeholder="Phone Number"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="lehangaName">Item_Code: </label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="lehangaInput"
+                name="lehangaName"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            
+              <td>
+                <label for="size">Size:</label>
+              </td>
+
+              <td>
+                <input type="radio" name="size" value="S" />S
+                <input type="radio" name="size" value="M" />M
+                <input type="radio" name="size" value="L" />L
+              </td>
+            </div>
+          </tr>
+
+          <tr>
+            <td><label for="payment">Card_Number:</label></td>
+            <td>
+              <input
+                type="text"
+                name="payment"
+                id="cardInput"
+                placeholder="Your Card Number"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="cvv">CVV Code:</label></td>
+            <td>
+              <input
+                type="text"
+                name="cvv"
+                placeholder="CVV Number"
+                id="cvvInput"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <input type="submit" name="submit" value="submit" id="submit" />
+            </td>
+            <td><input type="reset" name="reset" id="reset" /></td>
+          </tr>
+        </table>
+        
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

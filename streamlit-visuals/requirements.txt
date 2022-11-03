@@ -1,0 +1,8 @@
+pandas
+base58
+matplotlib
+numpy
+lxml
+seaborn
+dash
+plotly

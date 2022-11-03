@@ -39,6 +39,7 @@ s-front:
 	cd frontend &&	cd ecommerce &&	npm run dev
 
 s-sanity:
+	echo DONT USE THIS xd
 	cd backend && cd ecommerce && sanity start
 
 m-sanity:
@@ -47,6 +48,16 @@ m-sanity:
 set-sanity:
 	npm install -g @sanity/cli
 	sanity init --coupon javascriptmastery2022
+
+push:
+	git pull
+	git add *
+	git commit -m "${m} :"
+	git push
+
+show_dashboard:
+	pip install streamlit && pip install plotly
+	cd dashboard && streamlit run dataTable.py
 	
 
 

@@ -2,10 +2,12 @@ import streamlit as st
 import pandas as pd
 import base64
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import seaborn as sns
 import numpy as np
 import plotly.express as px
 from pathlib import Path
+from plotly.subplots import make_subplots
 
 TOP_X = 20
 
@@ -61,7 +63,6 @@ def getTopUsers(df, month=10, day=31, top=10):
     user_group = df[condFilter].groupby("user_id")
     usercount = user_group["user_id"].agg(["count"]).sort_values(by=["count"], ascending=False)
 
-
     usercount = usercount[:TOP_X]
     usercount["index"] = usercount.index
     usercount["index"] = usercount["index"].apply(getstr)
@@ -82,7 +83,6 @@ fig = px.bar(usercount, x="index", y="count", color="index")
 fig
 
 
-
 def selectTopBrands(df, day=31, month=10, event_type = "purchase", top=10):
     condFilter = (df["day"] <= day) & (df["month"] <= month) & (df["event_type"] == event_type)
     df = df[condFilter]
@@ -90,7 +90,6 @@ def selectTopBrands(df, day=31, month=10, event_type = "purchase", top=10):
     view_top_sellers.reset_index(inplace=True)
     view_top_sellers.rename(columns={"len" : "# sales"}, inplace=True)
     return view_top_sellers.head(top)
-
 
 
 def createAggBrandTimeDataframe(df, cumulDF = pd.DataFrame(), end=31, month=10, event_type="purchase", top=10):
@@ -103,11 +102,28 @@ def createAggBrandTimeDataframe(df, cumulDF = pd.DataFrame(), end=31, month=10, 
     return pd.concat(dataFrameList)
 
 
-fig = px.pie(selectTopBrands(df, event_type="view"), values='# sales', names='brand', title='Top 10 brands from Viewed')
-fig
+# Top 10 brand that most customer purchased vs. view
+st.subheader('Top 10 brand that most customer purchased vs. view')
 
-fig = px.pie(selectTopBrands(df, event_type="purchase"), values='# sales', names='brand', title='Top 10 brands from Purchased')
-fig
+# Create subplots: use 'domain' type for Pie subplot
+fig = make_subplots(column_widths=[400,400], rows=1, cols=2,
+        subplot_titles = ["Purchased", "Viewed"], 
+        specs=[[{'type':'domain'}, {'type':'domain'}]])
+
+fig.add_trace(go.Pie(labels=selectTopBrands(df,event_type='purchase')["brand"], values=selectTopBrands(df,event_type='purchase')["# sales"], name="Purchased"),
+            1, 1)
+fig.add_trace(go.Pie(labels=selectTopBrands(df,event_type='view')["brand"].head(10), values=selectTopBrands(df,event_type= 'view')["# sales"], name="Viewed"),
+            1, 2)
+
+# Use `hole` to create a donut-like pie chart
+fig.update_traces(hole=.1, hoverinfo="label+percent", textinfo='percent')
+
+fig.update_layout(
+    width=800, height=500)
+
+st.plotly_chart(fig)
+
+
 
 # There is a porblem Hudson, all the first millon data are from 2019-11-01.which is why I believe I should straight create an API end point to run all this on its own. usign 
 def gettopatyearcount(df, event_time_target):

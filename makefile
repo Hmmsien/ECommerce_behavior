@@ -55,9 +55,11 @@ push:
 	git commit -m "${m} :"
 	git push
 
-show_dashboard:
+install:
 	pip install streamlit && pip install plotly
-	cd dashboard && streamlit run dataTable.py
+
+show_dashboard:
+	cd streamlit-visuals && streamlit run About.py
 	
 
 

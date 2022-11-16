@@ -1,0 +1,9 @@
+image {
+    padding: 100px 40px;
+    background-color: #ffc942;
+    border-radius: 15px;
+    position: relative;
+    height: 500px;
+    line-height: 0.9; 
+    width: 100%;
+}

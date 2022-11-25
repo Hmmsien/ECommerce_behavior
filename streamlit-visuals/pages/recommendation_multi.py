@@ -12,13 +12,21 @@ from plotly.subplots import make_subplots
 from ecommerceEngine import EDataframe, RecommenderEngine
 from typing import List
 
-PRODUCTS_FILE = "data/products.csv"
-INTERACTIONS_FILE = "data/interactions.csv"
+PRODUCTS_FILE = "dist-data/products.csv"
+INTERACTIONS_FILE = "dist-data/interactions.csv"
+FILE_PRODUCT_MAPPINGS = "dist-data/product_mappings.csv"
 
 ROW_NAME = "product_name"
 ROW_COUNT = "count"
 ROW_SCORE = "score"
 ROW_PRODUCT_ID = "product_id"
+ROW_MEAN = "mean"
+ROW_CATEGORY_CODE = "category_code"
+ROW_BRAND = "brand"
+ROW_PRICE = "price"
+
+ROWS_DESCRIBE = [ROW_MEAN, ROW_CATEGORY_CODE, ROW_BRAND, ROW_PRICE]
+
 
 from enum import Enum
 
@@ -46,7 +54,7 @@ product_name = product_names.sort_values(ROW_COUNT, ascending=False)
 
 df_interacted_products = pd.core.frame.DataFrame()
 
-product_name
+# product_name
 
 def getTopNames(df, rlen = 100, field_name = ROW_NAME):
     """
@@ -142,7 +150,21 @@ if(len(purchased_list) > 0 ):
 
 if(len(df_interacted_products) > 0):
     st.write("Interacted Products")
+
+    recommenderEngine = RecommenderEngine(df_interacted_products, INTERACTIONS_FILEIn=INTERACTIONS_FILE, FILE_PRODUCT_MAPPINGSIn= FILE_PRODUCT_MAPPINGS)
+    recommenderEngine.populateRecommendation()
+
+
     df_interacted_products
+
+    prod_rec = recommenderEngine.getRecommendation()
+    prod_rec[ROW_PRODUCT_ID] = prod_rec[ROW_PRODUCT_ID].astype(int)
+    detailed_recommednation = prod_rec.merge(df_products, how="inner" , on=ROW_PRODUCT_ID)
+    # ROW_CATEGORY_CODE = "category_code"
+    # detailed_recommednation.dropna(ROW_CATEGORY_CODE)
+    # print("Uniqeu", detailed_recommednation[ROW_NAME].unique())
+    
+    detailed_recommednation[ROWS_DESCRIBE][:5]
 
     
     

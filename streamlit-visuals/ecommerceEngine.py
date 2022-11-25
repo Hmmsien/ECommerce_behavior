@@ -57,7 +57,7 @@ class RecommenderEngine():
     def __init__(self, ownHistory: pd.core.frame.DataFrame, INTERACTIONS_FILEIn:str = INTERACTIONS_FILE, FILE_PRODUCT_MAPPINGSIn:str = FILE_PRODUCT_MAPPINGS):
         self.INTERACTIONS_FILE = INTERACTIONS_FILEIn
         self.FILE_PRODUCT_MAPPINGS = FILE_PRODUCT_MAPPINGSIn
-        self.interactionDF = pd.read_csv(INTERACTIONS_FILE, index_col=0)
+        self.interactionDF = pd.read_csv(INTERACTIONS_FILEIn, index_col=0)
         self.productMapping = pd.read_csv(FILE_PRODUCT_MAPPINGS, index_col=0)
         self.ownHistory = ownHistory
         self.interactions = pd.core.frame.DataFrame()
@@ -113,16 +113,20 @@ class RecommenderEngine():
         self.interactions = interactions
         self.similarity = similarity
         
-        
-
-    def getRecommendation(self, FIRSTS = 1):
-        indices = np.argpartition(self.similarity, -FIRSTS)[-FIRSTS:]
+    def getRecommendation(self, nAnalized = 0, frow=0):
+        indices = np.argpartition(self.similarity, -nAnalized)[-nAnalized:]
         similar_users = self.interactions[self.interactions[ROW_USER_INDEX].isin(indices)].copy()
         similar_users = similar_users[similar_users[ROW_USER]!="-1"]
 
         product_recs = similar_users.groupby(ROW_PRODUCT_ID).score.agg(['count', 'mean'])
         product_recs = product_recs.sort_values("mean", ascending=False)
+        # product_recs[ROW_PRODUCT_ID] = product_recs.index
+        product_recs = product_recs.reset_index()
+        
+        print(product_recs)
 
+        if(frow > 0):
+            return product_recs[:frow]
         return product_recs
 
 def get_google_img(query):

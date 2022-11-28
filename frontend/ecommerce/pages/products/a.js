@@ -9,7 +9,7 @@ import { useStateContext } from '../../context/StateContext'
 
 const ProductDetails = ({ product, products }) => {
 
-    const { img_src, product_name, price, count } = product;
+    const { img_src, product_name, price } = product;
     const [index, setIndex] = useState(0);
     const { decQty, incQty, qty, onAdd } = useStateContext();
 
@@ -18,7 +18,7 @@ const ProductDetails = ({ product, products }) => {
             <div className="product-detail-container">
                 <div>
                     <div className="image-container">
-                        <img src={img_src} />
+                        {/* <img src={urlFor(image && image[index])} /> */}
                     </div>
                 </div>
                 <div className='product-details-desc' >
@@ -32,7 +32,7 @@ const ProductDetails = ({ product, products }) => {
                             <AiOutlineStar />
                         </div>
                         <p>
-                            {count}
+                            (20)
                         </p>
                     </div>
                     <h4>Details: </h4>
@@ -53,42 +53,14 @@ const ProductDetails = ({ product, products }) => {
                 </div>
             </div>
 
-            {/* <div className="maylike-products-wrapper">
-                <h2>You may also like</h2>
-                <div className="marquee">
-                    <div className="maylike-products-container track">
-                        {products.map((item) => (
-                            <Product key={item._id} product={item} />
-                        ))}
-                    </div>
-                </div>
-            </div> */}
 
         </div>
 
     )
 }
 
-export const getStaticPaths = async () => {
 
-
-    const res = await fetch(`${base}/product?skip=0&limit=5`)
-    const products = await res.json()
-
-    // const products = await client.fetch(query)
-    const paths = products.map((product) => ({
-        params: {
-            slug: product.slug
-        }
-    }))
-    return {
-        paths,
-        fallback: 'blocking'
-    }
-
-}
-
-export const getStaticProps = async ({ params: { slug } }) => {
+export const getStaticProps = async () => {
     // const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
     // const productsQuery = '*[_type == "product"]'
     // const product = await client.fetch(query)
@@ -100,17 +72,12 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
     // console.log(product)
 
-
-    const res = await fetch(`${base}/product_slug/${slug}`)
-    
-
-    let product = {
+    const product = {
         img_src: "",
-        product_name: "sofa",
+        product_name: "sample",
         price: 23.1
 
     }
-    product = await res.json()
 
     const products = [product]
 

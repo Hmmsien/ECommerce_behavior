@@ -16,17 +16,20 @@ export const StateContext = ({ children }) => {
     let index;
 
     const onAdd = (product, quantity) => {
-        const checkProductInCart = cartItems.find((item) => item._id === product._id);
+        const checkProductInCart = cartItems.find((item) => item.id === product.id);
 
         setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
         if (checkProductInCart) {
 
             const updatedCartItems = cartItems.map((cartProduct) => {
-                if (cartProduct._id === product._id) return {
+                if (cartProduct.id === product.id) return {
                     ...cartProduct, quantity: cartProduct.quantity + quantity
                 }
             })
+
+            console.log("New cart items:")
+            console.log(updatedCartItems)
 
             setCartItems(updatedCartItems);
         } else {
@@ -35,12 +38,12 @@ export const StateContext = ({ children }) => {
             setCartItems([...cartItems, { ...product }]);
         }
 
-        toast.success(`${qty} ${product.name} added to the cart.`)
+        toast.success(`${qty} ${product.product_name} added to the cart.`)
     }
 
     const onRemove = (product) => {
-        foundProduct = cartItems.find((item) => item._id === product._id);
-        const newCartItems = cartItems.filter((item) => item._id !==  product._id)
+        foundProduct = cartItems.find((item) => item.id === product.id);
+        const newCartItems = cartItems.filter((item) => item.id !==  product.id)
 
         setTotalPrice(prevTotalPrice => prevTotalPrice - foundProduct.price * foundProduct.quantity)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity)
@@ -49,9 +52,9 @@ export const StateContext = ({ children }) => {
 
 
     const toggleCartItemQuantity = (id, value) => {
-        foundProduct = cartItems.find((item) => item._id === id)
-        index = cartItems.findIndex((product) => product._id === id)
-        const newCartItems = cartItems.filter((item) => item._id !== id)
+        foundProduct = cartItems.find((item) => item.id === id)
+        index = cartItems.findIndex((product) => product.id === id)
+        const newCartItems = cartItems.filter((item) => item.id !== id)
         let addedCartItems = [...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 }]
 
         if (value === 'inc') {

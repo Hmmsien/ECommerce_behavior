@@ -22,8 +22,7 @@ const Home = ({ products, bannerData, productsql }) => {
       {console.log("bannerdata", bannerData, "products", products)}
 
       <div className='products-heading' >
-        <h2>Best Selling Products</h2>
-        <p>Speakers of many vairations</p>
+        <h2>Check them out!</h2>
 
 
         <div className='products-container' >

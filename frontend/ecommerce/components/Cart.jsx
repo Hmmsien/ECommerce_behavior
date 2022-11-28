@@ -9,7 +9,7 @@ import { urlFor } from '../lib/client'
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext();
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove, onPurchaseAll } = useStateContext();
 
   return (
     <div className='cart-wrapper' ref={cartRef} >
@@ -77,8 +77,8 @@ const Cart = () => {
               <h3>${totalPrice}</h3>
             </div>
             <div className="btn-container">
-              <button type='button' className='btn' onClick="" >
-                Pay with Stripe
+              <button type='button' className='btn' onClick={() => onPurchaseAll(cartItems)} >
+                Purchase All
               </button>
             </div>
           </div>

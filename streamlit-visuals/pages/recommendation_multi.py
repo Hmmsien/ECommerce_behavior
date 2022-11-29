@@ -93,7 +93,7 @@ def getDFFromFields(df_products: pd.core.frame.DataFrame, fields_query: List[str
 
 
 
-list_names = getTopNames(product_name)
+list_names = getTopNames(product_name, rlen=500)
 list_names = filterNoDots(list_names)
 
 # list_names

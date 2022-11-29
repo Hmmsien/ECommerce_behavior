@@ -15,6 +15,8 @@ export const StateContext = ({ children }) => {
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
     const [sessionID, setSessionID] = useState(uuidv4);
+    const [historial, setHistorial] = useState([]);
+    const [historialRecommendations, setRecommendations] = useState([]);
 
     let foundProduct;
     let index;
@@ -42,6 +44,26 @@ export const StateContext = ({ children }) => {
         })
 
         toast.success(`${qty} ${product.product_name} Purchased!`)
+        
+        updateHistorial();
+    }
+
+    const updateHistorial = () => {
+        // Gets Historial from api. and set it to the state
+         axios.get(`${base}/ecommerce/historial/${sessionID}`).then(res => {
+            const resHistorial = res.data;
+            setHistorial(resHistorial);
+        console.log("historial", historial);
+        // // setHistorial
+         })
+    }
+
+    const getRecommendations = () => {
+        axios.get(`${base}/ecommerce/recommendations_products/${sessionID}`).then(res => {
+            const recProducts = res.data;
+            setRecommendations(recProducts);
+            console.log("recommendations", historialRecommendations)
+        })
     }
 
     const onPurchaseAll = (cartItems) => {
@@ -65,6 +87,8 @@ export const StateContext = ({ children }) => {
 
         
         toast.success(`Purchased: ${purchasedItemNames.join(', ')}`)
+        
+        updateHistorial();
 
     }
 
@@ -73,13 +97,14 @@ export const StateContext = ({ children }) => {
     }
 
     const onAdd = (product, quantity) => {
-
+        
 
         const interaction = {
             user_id: sessionID,
             product_id: product.product_id,
             event_type: "cart"
         }
+        
 
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             console.log(response);
@@ -108,6 +133,7 @@ export const StateContext = ({ children }) => {
         }
 
         toast.success(`${qty} ${product.product_name} added to the cart.`)
+        updateHistorial();
     }
 
     const onRemove = (product) => {
@@ -172,7 +198,11 @@ export const StateContext = ({ children }) => {
             onRemove,
             sessionID,
             onPurchase,
-            onPurchaseAll
+            onPurchaseAll,
+            updateHistorial,
+            historial,
+            getRecommendations,
+            historialRecommendations
 
         }} >
             {children}

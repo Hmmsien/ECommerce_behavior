@@ -6,8 +6,16 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import MenuItem from '@mui/material/MenuItem';
 import { FormControl } from '@mui/material';
+
+
+import { useStateContext } from '../context/StateContext'
+import { useEffect } from 'react';
+
 const Footer = () => {
   const [AIModel, setAIModel] = React.useState(1);
+
+  const { historial } = useStateContext();
+
 
   const handleChange = (event) => {
     setAIModel(event.target.value);
@@ -21,12 +29,12 @@ const Footer = () => {
         {/* <AiFillInstagram /> */}
         <a target="_blank" href="https://github.com/Hmmsien/ECommerce_behavior"> <AiOutlineGithub /> </a>
         <a target="_blank" href="https://www.figma.com/file/bMmUmMtKJt9aUwKWHKW5LH/Data-Science?node-id=0%3A1"> < AiFillCodeSandboxSquare /></a>
-        
-      </p>
-      <FormControl sx={{  minWidth: "100%" }}>
 
-      <InputLabel id="demo-simple-select-label">Change Recommendaion Model</InputLabel>
-      <Select
+      </p>
+      <FormControl sx={{ minWidth: "100%" }}>
+
+        <InputLabel id="demo-simple-select-label">Change Recommendaion Model</InputLabel>
+        <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={AIModel}
@@ -39,6 +47,11 @@ const Footer = () => {
           <MenuItem value={3}>Model 3</MenuItem>
         </Select>
       </FormControl>
+
+      <h5>User Historial:</h5>
+      {historial?.map((event) => <p> {event.event_type} - Product: {event.product_id} </p>)}
+      {/* <p>{historial & historial}</p> */}
+
     </div>
   )
 }

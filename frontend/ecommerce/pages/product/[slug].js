@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
 
@@ -10,7 +10,8 @@ const ProductDetails = ({ product, products }) => {
 
     const { image, name, details, price } = product;
     const [index, setIndex] = useState(0);
-    const { decQty, incQty, qty, onAdd } = useStateContext();
+    const { decQty, incQty, qty, onAdd, sessionID, onPurchase } = useStateContext();
+
 
     return (
         <div>
@@ -57,7 +58,7 @@ const ProductDetails = ({ product, products }) => {
                     </div>
                     <div className="buttons">
                         <button type="button" className="add-to-cart" onClick={() => { onAdd(product, qty) }}>Add to Cart</button>
-                        <button type="button" className="buy-now" onClick={() => { }}>Buy Now</button>
+                        <button type="button" className="buy-now" onClick={() => { onPurchase(product)}}>Buy Now</button>
                     </div>
                 </div>
             </div>

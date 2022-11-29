@@ -1,5 +1,7 @@
 
 # ignore the folder named data
+!data/products
+
 data/
 .DS_Store
 

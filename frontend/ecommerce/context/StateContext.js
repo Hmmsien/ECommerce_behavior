@@ -41,10 +41,10 @@ export const StateContext = ({ children }) => {
 
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             console.log(response);
-            
+
             updateHistorial();
         })
-        
+
         toast.success(`${qty} ${product.product_name} Purchased!`)
 
     }
@@ -61,7 +61,7 @@ export const StateContext = ({ children }) => {
 
     const resetHistorial = () => {
         axios.delete(`${base}/ecommerce/historial/${sessionID}`).then(res => {
-            console.log("Historial Resetted?")
+
             setHistorial([]);
         })
 
@@ -117,6 +117,9 @@ export const StateContext = ({ children }) => {
 
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             console.log(response);
+
+            toast.success(`${qty} ${product.product_name} added to the cart.`)
+            updateHistorial();
         })
 
         const checkProductInCart = cartItems.find((item) => item.id === product.id);
@@ -131,8 +134,8 @@ export const StateContext = ({ children }) => {
                 }
             })
 
-            console.log("New cart items:")
-            console.log(updatedCartItems)
+            // console.log("New cart items:")
+            // console.log(updatedCartItems)
 
             setCartItems(updatedCartItems);
         } else {
@@ -141,8 +144,6 @@ export const StateContext = ({ children }) => {
             setCartItems([...cartItems, { ...product }]);
         }
 
-        toast.success(`${qty} ${product.product_name} added to the cart.`)
-        updateHistorial();
     }
 
     const onRemove = (product) => {

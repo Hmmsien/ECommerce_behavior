@@ -19,7 +19,6 @@ const ProductDetails = ({ product, products }) => {
     console.log("Recommendations received: ")
     console.log(historialRecommendations)
     useEffect(() => {
-        // Post the lookup
         const interaction = {
             user_id: sessionID,
             product_id: product.product_id,
@@ -28,19 +27,20 @@ const ProductDetails = ({ product, products }) => {
         setQty(1);
 
         axios.post(`${base}/interaction`, interaction).then(function (response) {
-            console.log(response);
+            // console.log(response);
+            getRecommendations();
+            updateHistorial();
         })
 
-        console.log("interaction", interaction)
-        getRecommendations();
-        updateHistorial();
+        // console.log("interaction", interaction)
 
-        
-    console.log("Products: ")
-    console.log(products)
+
+
+        console.log("Products: ")
+        console.log(products)
 
     }, [router.asPath])
-    
+
 
     // console.log(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=5`)
 
@@ -98,16 +98,16 @@ const ProductDetails = ({ product, products }) => {
 
             {
                 historialRecommendations && historialRecommendations.length > 0 &&
-                    (<div className="maylike-products-wrapper">
-                        <h2>Based on your historial...</h2>
-                        <div className="marquee">
-                            <div className="maylike-products-container track">
-                                {historialRecommendations?.map((item) => (
-                                    <ProductSQL key={item.id} product={item} />
-                                ))}
-                            </div>
+                (<div className="maylike-products-wrapper">
+                    <h2>Based on your historial...</h2>
+                    <div className="marquee">
+                        <div className="maylike-products-container track">
+                            {historialRecommendations?.map((item) => (
+                                <ProductSQL key={item.id} product={item} />
+                            ))}
                         </div>
-                    </div>)
+                    </div>
+                </div>)
             }
 
         </div>
@@ -144,10 +144,6 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
     const resRecommendation = await fetch(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=5`)
     const products = await resRecommendation.json()
-
-
-
-
     return {
         props: { product, products }
     }

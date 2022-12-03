@@ -15,7 +15,7 @@ import Link from 'next/link';
 
 /**
   Gets the time formatted as dd/mm/yyyy - hh:mm
-* @param {datetime} event_time 
+* @param {datetime} event_time
  * @returns {string} Formatted time
  */
 const formatDateTime = (event_time) => {

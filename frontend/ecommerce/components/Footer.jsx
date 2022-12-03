@@ -12,10 +12,22 @@ import { useStateContext } from '../context/StateContext'
 import { useEffect } from 'react';
 import Link from 'next/link';
 
+
+/**
+  Gets the time formatted as dd/mm/yyyy - hh:mm
+* @param {datetime} event_time 
+ * @returns {string} Formatted time
+ */
+const formatDateTime = (event_time) => {
+  
+  d = new Date(`${event_time}Z`)
+  return d.toLocaleDateString()+ " - " + d.toLocaleTimeString();
+}
+
 const Footer = () => {
   const [AIModel, setAIModel] = React.useState(1);
 
-  const { historial } = useStateContext();
+  const { historial, resetHistorial } = useStateContext();
 
 
   const handleChange = (event) => {
@@ -49,22 +61,14 @@ const Footer = () => {
         </Select>
       </FormControl>
 
-      <h5>User Historial:</h5>
+      <h5>User Historial: <button onClick={resetHistorial} >Reset Historial</button> </h5>
 
 
       {historial?.map((event) => <Link href={`/products/${event?.Product?.slug}`} > 
       <a>
-      {event.Interaction?.event_type} - Product: {event.Product?.product_name} 
+      {event.Interaction?.event_type} - Product: {event.Product?.product_name}  - { formatDateTime(event?.Interaction?.created_time)}
       </a>
       </Link>)}
-      <p>{historial & historial}</p>
-      {/* {console.log(historial)} */}
-
-      {/* {historial?.forEach(event => {
-        console.log(`slug`);
-        console.log(`/products/${event?.Product?.slug}`)
-      })
-      } */}
 
     </div>
   )

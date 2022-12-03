@@ -24,7 +24,7 @@ export const StateContext = ({ children }) => {
     const resetCart = () => {
 
         setCartItems([]);
-        
+
         setTotalPrice(0);
         setQty(1);
         setTotalQuantities(0);
@@ -41,21 +41,30 @@ export const StateContext = ({ children }) => {
 
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             console.log(response);
+            
+            updateHistorial();
         })
-
-        toast.success(`${qty} ${product.product_name} Purchased!`)
         
-        updateHistorial();
+        toast.success(`${qty} ${product.product_name} Purchased!`)
+
     }
 
     const updateHistorial = () => {
         // Gets Historial from api. and set it to the state
-         axios.get(`${base}/ecommerce/historial/${sessionID}`).then(res => {
+        axios.get(`${base}/ecommerce/historial/${sessionID}`).then(res => {
             const resHistorial = res.data;
             setHistorial(resHistorial);
-        console.log("historial", historial);
-        // // setHistorial
-         })
+            console.log("historial", historial);
+            // // setHistorial
+        })
+    }
+
+    const resetHistorial = () => {
+        axios.delete(`${base}/ecommerce/historial/${sessionID}`).then(res => {
+            console.log("Historial Resetted?")
+            setHistorial([]);
+        })
+
     }
 
     const getRecommendations = () => {
@@ -85,26 +94,26 @@ export const StateContext = ({ children }) => {
 
         });
 
-        
+
         toast.success(`Purchased: ${purchasedItemNames.join(', ')}`)
-        
+
         updateHistorial();
 
     }
 
-    function getPurchasedItemsNames(){
+    function getPurchasedItemsNames() {
 
     }
 
     const onAdd = (product, quantity) => {
-        
+
 
         const interaction = {
             user_id: sessionID,
             product_id: product.product_id,
             event_type: "cart"
         }
-        
+
 
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             console.log(response);
@@ -202,7 +211,8 @@ export const StateContext = ({ children }) => {
             updateHistorial,
             historial,
             getRecommendations,
-            historialRecommendations
+            historialRecommendations,
+            resetHistorial
 
         }} >
             {children}

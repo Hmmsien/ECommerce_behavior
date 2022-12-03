@@ -97,7 +97,7 @@ const ProductDetails = ({ product, products }) => {
 
 
             {
-                historialRecommendations &&
+                historialRecommendations && historialRecommendations.length > 0 &&
                     (<div className="maylike-products-wrapper">
                         <h2>Based on your historial...</h2>
                         <div className="marquee">
@@ -135,29 +135,11 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params: { slug } }) => {
-    // const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-    // const productsQuery = '*[_type == "product"]'
-    // const product = await client.fetch(query)
 
-    // const products = await client.fetch(productsQuery)
-
-    // const bannerQuery = '*[_type == "banner"]';
-    // const bannerData = await client.fetch(bannerQuery)
-
-    // console.log(product)
 
 
     const res = await fetch(`${base}/product_slug/${slug}`)
 
-
-
-    // Sample Structure
-    // let product = {
-    //     img_src: "",
-    //     product_name: "sofa",
-    //     price: 23.1
-
-    // }
     const product = await res.json()
 
     const resRecommendation = await fetch(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=5`)

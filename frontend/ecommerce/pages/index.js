@@ -47,7 +47,7 @@ export const getServerSideProps = async () => {
   const bannerQuery = '*[_type == "banner"]';
   const bannerData = await client.fetch(bannerQuery);
 
-  const res = await fetch(`${base}/product?skip=0&limit=5`)
+  const res = await fetch(`${base}/product_fromtopcategories?limit=20`)
   const productsql = await res.json()
 
   return {

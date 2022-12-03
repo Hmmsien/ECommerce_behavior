@@ -10,6 +10,7 @@ import { FormControl } from '@mui/material';
 
 import { useStateContext } from '../context/StateContext'
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 const Footer = () => {
   const [AIModel, setAIModel] = React.useState(1);
@@ -49,8 +50,21 @@ const Footer = () => {
       </FormControl>
 
       <h5>User Historial:</h5>
-      {historial?.map((event) => <p> {event.event_type} - Product: {event.product_id} </p>)}
-      {/* <p>{historial & historial}</p> */}
+
+
+      {historial?.map((event) => <Link href={`/products/${event?.Product?.slug}`} > 
+      <a>
+      {event.Interaction?.event_type} - Product: {event.Product?.product_name} 
+      </a>
+      </Link>)}
+      <p>{historial & historial}</p>
+      {/* {console.log(historial)} */}
+
+      {/* {historial?.forEach(event => {
+        console.log(`slug`);
+        console.log(`/products/${event?.Product?.slug}`)
+      })
+      } */}
 
     </div>
   )

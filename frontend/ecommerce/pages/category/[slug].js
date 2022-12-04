@@ -13,7 +13,9 @@ const CategoriesGallery = ({ products, categoryBanner }) => {
     }, [])
     return (
         <>
-            <h1>{categoryBanner.category_code}</h1>
+            <div className='products-heading' >
+                <h1>{categoryBanner.category_code.titlefy()}</h1>
+            </div>
 
             <div className='products-container' >
                 {

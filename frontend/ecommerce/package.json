@@ -18,6 +18,7 @@
     "@sanity/image-url": "^1.0.1",
     "@stripe/stripe-js": "^1.25.0",
     "canvas-confetti": "^1.5.1",
+    "limax": "^3.0.0",
     "mui-datatables": "^4.2.2",
     "next": "12.1.0",
     "next-sanity-image": "^3.2.1",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "eslint": "8.24.0",
-    "eslint-config-next": "12.3.1"
+    "eslint-config-next": "12.3.1",
+    "raw-loader": "^4.0.2"
   }
 }

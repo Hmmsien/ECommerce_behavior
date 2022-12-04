@@ -8,9 +8,10 @@ import { client_base, base } from '../../lib/client_fast'
 import { client, urlFor } from '../../lib/client'
 import { Product, ProductSQL } from '../../components'
 import { useStateContext } from '../../context/StateContext'
+import Link from 'next/link'
 
 
-const ProductDetails = ({ product, products }) => {
+const ProductDetails = ({ product, products, sameCategoryProducts }) => {
     const router = useRouter()
     const { img_src, product_name, price, count } = product;
     const [index, setIndex] = useState(0);
@@ -31,13 +32,6 @@ const ProductDetails = ({ product, products }) => {
             updateHistorial();
         })
 
-        // console.log("interaction", interaction)
-
-
-
-        console.log("Products: ")
-        console.log(products)
-
     }, [router.asPath])
 
 
@@ -52,22 +46,27 @@ const ProductDetails = ({ product, products }) => {
                     </div>
                 </div>
                 <div className='product-details-desc' >
-                    <h1>{product_name}</h1>
+                    <h1>{product_name.titlefy()}</h1>
                     <div className="reviews">
                         <div>
                             <AiFillStar />
                             <AiFillStar />
                             <AiFillStar />
                             <AiFillStar />
-                            <AiOutlineStar />
+                            <AiFillStar />
                         </div>
                         <p>
                             {count}
                         </p>
                     </div>
-                    <h4>Details: </h4>
+                    <h3>Category: <Link  href={`/category/${product.category_code.slugify()}`} >
+                        <a>{product.category_code.titlefy('-')}</a></Link></h3>
+
+                    <h3>Brand:  <span>{product.brand.titlefy()}</span> </h3>
                     {/* <p>{details}</p> */}
+                    
                     <p className="price">${price}</p>
+
                     <div className="quantity">
                         <h3>Quantity:</h3>
                         <p className="quantity-desc">
@@ -79,6 +78,18 @@ const ProductDetails = ({ product, products }) => {
                     <div className="buttons">
                         <button type="button" className="add-to-cart" onClick={() => { onAdd(product, qty) }}>Add to Cart</button>
                         <button type="button" className="buy-now" onClick={() => { onPurchase(product, qty) }}>Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div className="maylike-products-wrapper">
+                <h2>Similar Products</h2>
+                <div className="marquee">
+                    <div className="maylike-products-container track">
+                        {sameCategoryProducts.map((item) => (
+                            <ProductSQL key={item.id} product={item} />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -135,16 +146,21 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
 
-
+    const RECOMMENDATIONS = 5;
 
     const res = await fetch(`${base}/product_slug/${slug}`)
-
     const product = await res.json()
 
-    const resRecommendation = await fetch(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=5`)
+    const resRecommendation = await fetch(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=${RECOMMENDATIONS}`)
     const products = await resRecommendation.json()
+
+    const resSameCategory = await fetch(`${base}/product_category/${product.category_code}?limit=${RECOMMENDATIONS}`)
+    const sameCategoryProducts = await resSameCategory.json()
+
+    console.log("sameCategoryProducts", sameCategoryProducts)
+
     return {
-        props: { product, products }
+        props: { product, products, sameCategoryProducts }
     }
 
 }

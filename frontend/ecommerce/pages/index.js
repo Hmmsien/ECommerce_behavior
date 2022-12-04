@@ -52,7 +52,9 @@ const Home = ({ bannerData, productsql }) => {
         (
           <>
             <Link href={`/category/${banner_1.slug}`}>
-              <img className="static-banner" src={banner_1.img_src} alt={banner_1.description} />
+              <a >
+                <img className="static-banner" src={banner_1.img_src} alt={banner_1.description} />
+              </a>
             </Link>
           </>
         )

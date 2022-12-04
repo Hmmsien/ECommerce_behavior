@@ -112,6 +112,8 @@ width: 100%;
 .product-card:hover{
   transform: scale(1.1,1.1)
 }
+
+
 .product-image{
   border-radius: 15px;
  background-color: #ebebeb;
@@ -211,6 +213,12 @@ width: 100%;
 .static-banner{
   width: 100%;
   max-width: 100%;
+  transform: scale(1, 1);
+  transition: transform 0.5s ease;
+}
+
+.static-banner:hover{
+  transform: scale(1.01,1.01)
 }
 .desc{
 position: absolute;

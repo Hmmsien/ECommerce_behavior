@@ -2,24 +2,52 @@ import React from 'react'
 import axios from "axios"
 import { client } from '../lib/client';
 import { client_base, base } from '../lib/client_fast'
-import { Product, FooterBanner, HeroBanner, ProductSQL } from '../components';
+import { FooterBanner, HeroBanner, ProductSQL, StaticFooterBanner } from '../components';
+import { useStateContext } from '../context/StateContext'
 
 
-const Home = ({ products, bannerData, productsql }) => {
+const Home = ({ bannerData, productsql }) => {
 
-  console.log("productsql", productsql)
-  // console.log("requests", `${base}/product`)
-  // axios.get(`${base}/product`).then((res) => {
-  //   console.log(res.data)
-  // })
 
+  const { banners, populateBanners } = useStateContext();
+
+  // const banner_1 = { 'img_src': "" }
+  // const banner_2 = { 'img_src': "" }
+
+  const [banner_1, setBanner_1] = React.useState({ 'img_src': "" })
+  const [banner_2, setBanner_2] = React.useState({ 'img_src': "" })
+
+  React.useEffect(() => {
+    populateBanners();
+  }, [])
+
+  React.useEffect(() => {
+    
+    banner_1 = setBanner_1(banners[0] ? banners[0] : {})
+    banner_2 = setBanner_2(banners[1] ? banners[1] : {})
+
+  }, [banners])
+
+  React.useEffect(()=>{
+    
+    console.log("Banner obtained from the state", banners[0])
+    console.log("banner_1", banner_1)
+  }, [banner_1, banner_2])
+
+  
 
 
   return (
     <div>
 
       <HeroBanner HeroBanner={bannerData.length && bannerData[0]} />
-      {console.log("bannerdata", bannerData, "products", products)}
+{/* 
+      {
+        // banner_1 &&  <StaticFooterBanner img_src={banner_1.img_src}  />
+        banner_1.img_src && <StaticFooterBanner img_src = {banner_1.img_src} />
+      } */}
+      {/* <p>{banner_1.img_src}</p> */}
+
 
       <div className='products-heading' >
         <h2>Popular Products 🔥</h2>
@@ -41,17 +69,17 @@ const Home = ({ products, bannerData, productsql }) => {
 }
 
 export const getServerSideProps = async () => {
-  const query = '*[_type == "product"]';
-  const products = await client.fetch(query);
 
   const bannerQuery = '*[_type == "banner"]';
   const bannerData = await client.fetch(bannerQuery);
 
-  const res = await fetch(`${base}/product_fromtopcategories?limit=20`)
-  const productsql = await res.json()
+  const res_products = await fetch(`${base}/product_fromtopcategories?limit=20`)
+  const productsql = await res_products.json()
+
+
 
   return {
-    props: { products, bannerData, productsql }
+    props: { bannerData, productsql }
   }
 
 }

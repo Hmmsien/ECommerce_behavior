@@ -9,6 +9,7 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
     const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [banners, setBanners] = useState([])
 
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -47,6 +48,19 @@ export const StateContext = ({ children }) => {
 
         toast.success(`${qty} ${product.product_name} Purchased!`)
 
+    }
+
+    const populateBanners = () => {
+        axios.get(`${base}/ecommerce/recommended_category/${sessionID}?limit=2`).then(res => {
+            const resBanners = res.data;
+            
+            
+            console.log("resBanners", resBanners);
+            if(resBanners){
+                setBanners(resBanners);
+            }
+            console.log("setted banners on the state", banners);
+        })
     }
 
     const updateHistorial = () => {
@@ -211,7 +225,10 @@ export const StateContext = ({ children }) => {
             historial,
             getRecommendations,
             historialRecommendations,
-            resetHistorial
+            resetHistorial,
+            banners,
+            populateBanners,
+            setBanners
 
         }} >
             {children}

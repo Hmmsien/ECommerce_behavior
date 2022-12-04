@@ -16,16 +16,15 @@ const ProductDetails = ({ product, products }) => {
     const [index, setIndex] = useState(0);
     const { decQty, incQty, qty, onAdd, sessionID, onPurchase, setQty, updateHistorial, getRecommendations, historialRecommendations } = useStateContext();
 
-    console.log("Recommendations received: ")
-    console.log(historialRecommendations)
     useEffect(() => {
         const interaction = {
             user_id: sessionID,
             product_id: product.product_id,
-            event_type: "view"
+            event_type: "view",
+
         }
         setQty(1);
-
+        // populateBanners();
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             // console.log(response);
             getRecommendations();

@@ -207,6 +207,11 @@ width: 100%;
   height: 450px;
 }
 
+
+.static-banner{
+  width: 100%;
+  max-width: 100%;
+}
 .desc{
 position: absolute;
 right: 10%;

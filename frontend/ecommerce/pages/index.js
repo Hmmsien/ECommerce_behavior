@@ -14,8 +14,8 @@ const Home = ({ bannerData, productsql }) => {
   // const banner_1 = { 'img_src': "" }
   // const banner_2 = { 'img_src': "" }
 
-  const [banner_1, setBanner_1] = React.useState({ 'img_src': "" })
-  const [banner_2, setBanner_2] = React.useState({ 'img_src': "" })
+  const [banner_1, setBanner_1] = React.useState({})
+  const [banner_2, setBanner_2] = React.useState({})
 
   React.useEffect(() => {
     populateBanners();
@@ -40,13 +40,23 @@ const Home = ({ bannerData, productsql }) => {
   return (
     <div>
 
-      <HeroBanner HeroBanner={bannerData.length && bannerData[0]} />
-{/* 
-      {
+      {/* <HeroBanner HeroBanner={bannerData.length && bannerData[0]} /> */}
+
+      {/* {
         // banner_1 &&  <StaticFooterBanner img_src={banner_1.img_src}  />
-        banner_1.img_src && <StaticFooterBanner img_src = {banner_1.img_src} />
+        banner_1  && <StaticFooterBanner banner={banner_1} />
       } */}
       {/* <p>{banner_1.img_src}</p> */}
+      {
+        banner_1 && 
+        (
+          <>
+          <a href={`/category/${banner_1.slug}`}>
+            <img className="static-banner" src={banner_1.img_src} alt={banner_1.description} />
+          </a>
+          </>
+        )
+      }
 
 
       <div className='products-heading' >
@@ -62,7 +72,6 @@ const Home = ({ bannerData, productsql }) => {
         </div>
 
       </div>
-
       <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </div>
   )

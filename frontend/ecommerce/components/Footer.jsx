@@ -19,9 +19,9 @@ import Link from 'next/link';
  * @returns {string} Formatted time
  */
 const formatDateTime = (event_time) => {
-  
-  d = new Date(`${event_time}Z`)
-  return d.toLocaleDateString()+ " - " + d.toLocaleTimeString();
+
+  const date = new Date(`${event_time}Z`)
+  return date.toLocaleDateString() + " - " + date.toLocaleTimeString();
 }
 
 const Footer = () => {
@@ -64,10 +64,10 @@ const Footer = () => {
       <h5>User Historial: <button onClick={resetHistorial} >Reset Historial</button> </h5>
 
 
-      {historial?.map((event) => <Link href={`/products/${event?.Product?.slug}`} > 
-      <a>
-      {event.Interaction?.event_type} - Product: {event.Product?.product_name}  - { formatDateTime(event?.Interaction?.created_time)}
-      </a>
+      {historial?.map((event) => <Link href={`/products/${event?.Product?.slug}`} >
+        <a >
+          {event.Interaction?.event_type} - Product: {event.Product?.product_name}  - {formatDateTime(event?.Interaction?.created_time)}
+        </a>
       </Link>)}
 
     </div>

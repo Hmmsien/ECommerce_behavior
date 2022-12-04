@@ -38,8 +38,8 @@ s-front:
 	cd frontend &&	cd ecommerce &&	npm install --legacy-peer-deps
 	cd frontend &&	cd ecommerce &&	npm run dev
 
+# Use this one for running the Sanity Admin backend that will be located at: 
 s-sanity:
-	echo DONT USE THIS xd
 	cd backend && cd ecommerce && sanity start
 
 m-sanity:

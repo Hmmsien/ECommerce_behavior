@@ -85,12 +85,10 @@ export const StateContext = ({ children }) => {
                 product_id: product.product_id,
                 event_type: "purchase"
             }
-
-
             axios.post(`${base}/interaction`, interaction).then(function (response) {
-                console.log(response);
+
+                resetCart();
             })
-            resetCart();
 
         });
 

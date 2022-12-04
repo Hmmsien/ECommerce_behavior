@@ -4,7 +4,7 @@ import { client } from '../lib/client';
 import { client_base, base } from '../lib/client_fast'
 import { FooterBanner, HeroBanner, ProductSQL, StaticFooterBanner } from '../components';
 import { useStateContext } from '../context/StateContext'
-
+import Link from 'next/link';
 
 const Home = ({ bannerData, productsql }) => {
 
@@ -22,19 +22,19 @@ const Home = ({ bannerData, productsql }) => {
   }, [])
 
   React.useEffect(() => {
-    
+
     banner_1 = setBanner_1(banners[0] ? banners[0] : {})
     banner_2 = setBanner_2(banners[1] ? banners[1] : {})
 
   }, [banners])
 
-  React.useEffect(()=>{
-    
+  React.useEffect(() => {
+
     console.log("Banner obtained from the state", banners[0])
     console.log("banner_1", banner_1)
   }, [banner_1, banner_2])
 
-  
+
 
 
   return (
@@ -48,12 +48,12 @@ const Home = ({ bannerData, productsql }) => {
       } */}
       {/* <p>{banner_1.img_src}</p> */}
       {
-        banner_1 && 
+        banner_1 &&
         (
           <>
-          <a href={`/category/${banner_1.slug}`}>
-            <img className="static-banner" src={banner_1.img_src} alt={banner_1.description} />
-          </a>
+            <Link href={`/category/${banner_1.slug}`}>
+              <img className="static-banner" src={banner_1.img_src} alt={banner_1.description} />
+            </Link>
           </>
         )
       }

@@ -1,9 +1,10 @@
 import React from 'react'
 import axios from "axios"
-import { base } from '../lib/client_fast'
+import { base, base_local } from '../lib/client_fast'
 import { FooterBanner, HeroBanner, ProductSQL, StaticFooterBanner, StaticBanner } from '../components';
 import { useStateContext } from '../context/StateContext'
 import Link from 'next/link';
+
 
 const Home = ({  productsql, categories_with_banners }) => {
 
@@ -97,10 +98,12 @@ const Home = ({  productsql, categories_with_banners }) => {
 export const getServerSideProps = async () => {
 
 
-  const res_products = await fetch(`${base}/product_fromtopcategories?limit=20`)
+  const res_products = await fetch(`${base_local}/product_fromtopcategories?limit=20`, {
+    credentials: 'include'
+  })
   const productsql = await res_products.json()
 
-  const categories_with_banners_res = await fetch(`${base}/ecommerce/banner_categories?limit=25`)
+  const categories_with_banners_res = await fetch(`${base_local}/ecommerce/banner_categories?limit=25`)
   const categories_with_banners = await categories_with_banners_res.json()
 
   return {

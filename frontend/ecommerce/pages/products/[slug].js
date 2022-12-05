@@ -59,12 +59,12 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
                             {count}
                         </p>
                     </div>
-                    <h3>Category: <Link  href={`/category/${product.category_code.slugify()}`} >
+                    <h3>Category: <Link href={`/category/${product.category_code.slugify()}`} >
                         <a>{product.category_code.titlefy('-')}</a></Link></h3>
 
                     <h3>Brand:  <span>{product.brand.titlefy()}</span> </h3>
                     {/* <p>{details}</p> */}
-                    
+
                     <p className="price">${price}</p>
 
                     <div className="quantity">
@@ -82,7 +82,7 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
                 </div>
             </div>
 
-            
+
             <div className="maylike-products-wrapper">
                 <h2>Similar Products</h2>
                 <div className="marquee">
@@ -93,17 +93,19 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
                     </div>
                 </div>
             </div>
-
-            <div className="maylike-products-wrapper">
-                <h2>Other users also searched for...</h2>
-                <div className="marquee">
-                    <div className="maylike-products-container track">
-                        {products.map((item) => (
-                            <ProductSQL key={item.id} product={item} />
-                        ))}
+            {
+                products &&
+                (<div className="maylike-products-wrapper">
+                    <h2>Other users also searched for...</h2>
+                    <div className="marquee">
+                        <div className="maylike-products-container track">
+                            {products.map((item) => (
+                                <ProductSQL key={item.id} product={item} />
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>)
+            }
 
 
             {

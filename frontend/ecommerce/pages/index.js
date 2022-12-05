@@ -95,7 +95,7 @@ const Home = ({  productsql, categories_with_banners }) => {
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
 
 
   const res_products = await fetch(`${base_local}/product_fromtopcategories?limit=20`, {

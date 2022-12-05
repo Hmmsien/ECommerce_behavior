@@ -5,8 +5,6 @@ import { TiDeleteOutline, tiDeleteOutline } from 'react-icons/ti'
 import toast from 'react-hot-toast';
 
 import { useStateContext } from '../context/StateContext';
-import { urlFor } from '../lib/client'
-
 const Cart = () => {
   const cartRef = useRef();
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove, onPurchaseAll } = useStateContext();

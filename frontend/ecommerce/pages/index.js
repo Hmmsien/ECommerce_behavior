@@ -1,12 +1,11 @@
 import React from 'react'
 import axios from "axios"
-import { client } from '../lib/client';
-import { client_base, base } from '../lib/client_fast'
+import { base } from '../lib/client_fast'
 import { FooterBanner, HeroBanner, ProductSQL, StaticFooterBanner, StaticBanner } from '../components';
 import { useStateContext } from '../context/StateContext'
 import Link from 'next/link';
 
-const Home = ({ bannerData, productsql, categories_with_banners }) => {
+const Home = ({  productsql, categories_with_banners }) => {
 
 
   const { banners, populateBanners } = useStateContext();
@@ -97,8 +96,6 @@ const Home = ({ bannerData, productsql, categories_with_banners }) => {
 
 export const getServerSideProps = async () => {
 
-  const bannerQuery = '*[_type == "banner"]';
-  const bannerData = await client.fetch(bannerQuery);
 
   const res_products = await fetch(`${base}/product_fromtopcategories?limit=20`)
   const productsql = await res_products.json()
@@ -107,7 +104,7 @@ export const getServerSideProps = async () => {
   const categories_with_banners = await categories_with_banners_res.json()
 
   return {
-    props: { bannerData, productsql, categories_with_banners }
+    props: { productsql, categories_with_banners }
   }
 
 }

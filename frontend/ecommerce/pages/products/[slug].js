@@ -3,10 +3,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
-import { client_base, base } from '../../lib/client_fast'
-
-import { client, urlFor } from '../../lib/client'
-import { Product, ProductSQL } from '../../components'
+import { base } from '../../lib/client_fast'
+import { ProductSQL } from '../../components'
 import { useStateContext } from '../../context/StateContext'
 import Link from 'next/link'
 

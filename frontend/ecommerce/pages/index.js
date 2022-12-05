@@ -2,14 +2,15 @@ import React from 'react'
 import axios from "axios"
 import { client } from '../lib/client';
 import { client_base, base } from '../lib/client_fast'
-import { FooterBanner, HeroBanner, ProductSQL, StaticFooterBanner } from '../components';
+import { FooterBanner, HeroBanner, ProductSQL, StaticFooterBanner, StaticBanner } from '../components';
 import { useStateContext } from '../context/StateContext'
 import Link from 'next/link';
 
-const Home = ({ bannerData, productsql }) => {
+const Home = ({ bannerData, productsql, categories_with_banners }) => {
 
 
   const { banners, populateBanners } = useStateContext();
+  
 
   // const banner_1 = { 'img_src': "" }
   // const banner_2 = { 'img_src': "" }
@@ -17,8 +18,10 @@ const Home = ({ bannerData, productsql }) => {
   const [banner_1, setBanner_1] = React.useState({})
   const [banner_2, setBanner_2] = React.useState({})
 
+
   React.useEffect(() => {
     populateBanners();
+    console.log("categories_with_banners", categories_with_banners)
   }, [])
 
   React.useEffect(() => {
@@ -36,29 +39,35 @@ const Home = ({ bannerData, productsql }) => {
 
 
 
-
   return (
     <div>
 
-      {/* <HeroBanner HeroBanner={bannerData.length && bannerData[0]} /> */}
-
-      {/* {
-        // banner_1 &&  <StaticFooterBanner img_src={banner_1.img_src}  />
-        banner_1  && <StaticFooterBanner banner={banner_1} />
-      } */}
-      {/* <p>{banner_1.img_src}</p> */}
       {
         banner_1 &&
         (
-          <>
-            <Link href={`/category/${banner_1.slug}`}>
-              <a >
-                <img className="static-banner" src={banner_1.img_src} alt={banner_1.description} />
-              </a>
-            </Link>
-          </>
+          <StaticBanner banner={banner_1} />
         )
       }
+
+
+
+      <div className='products-heading' >
+        <h2>Hot Categories...</h2>
+
+
+        <div className='products-container' >
+          {
+            categories_with_banners?.map((category) => <>
+             {(
+              <>
+              <Link href={`/category/${category.slugify()}`} >{category.titlefy()}</Link>
+              </>
+             )}
+            </>)
+          }
+        </div>
+
+      </div>
 
 
       <div className='products-heading' >
@@ -74,7 +83,14 @@ const Home = ({ bannerData, productsql }) => {
         </div>
 
       </div>
-      <FooterBanner footerBanner={bannerData && bannerData[0]} />
+
+      {
+        banner_2 &&
+        (
+          <StaticBanner banner={banner_2} />
+        )
+      }
+
     </div>
   )
 }
@@ -87,10 +103,11 @@ export const getServerSideProps = async () => {
   const res_products = await fetch(`${base}/product_fromtopcategories?limit=20`)
   const productsql = await res_products.json()
 
-
+  const categories_with_banners_res = await fetch(`${base}/ecommerce/banner_categories?limit=25`)
+  const categories_with_banners = await categories_with_banners_res.json()
 
   return {
-    props: { bannerData, productsql }
+    props: { bannerData, productsql, categories_with_banners }
   }
 
 }

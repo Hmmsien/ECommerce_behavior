@@ -30,7 +30,7 @@ const CategoriesGallery = ({ products, categoryBanner }) => {
 }
 
 export const getStaticPaths = async () => {
-    const PATHS_TO_CREATE = 5;
+    const PATHS_TO_CREATE = 500;
     const res = await fetch(`${base}/product_category/?limit=${PATHS_TO_CREATE}`)
     const res_categories = await res.json()
     const paths = res_categories.map((res_category) => ({

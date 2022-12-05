@@ -127,8 +127,8 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
 
 export const getStaticPaths = async () => {
 
-
-    const res = await fetch(`${base}/product?skip=0&limit=5`)
+    const SEEK_STATIC = 5000
+    const res = await fetch(`${base}/product?skip=0&limit=${SEEK_STATIC}`)
     const products = await res.json()
 
     // const products = await client.fetch(query)
@@ -146,7 +146,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
 
-    const RECOMMENDATIONS = 5;
+    const RECOMMENDATIONS = 20;
 
     const res = await fetch(`${base}/product_slug/${slug}`)
     const product = await res.json()

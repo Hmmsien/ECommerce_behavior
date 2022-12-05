@@ -44,7 +44,7 @@ const Footer = () => {
         <a target="_blank" href="https://www.figma.com/file/bMmUmMtKJt9aUwKWHKW5LH/Data-Science?node-id=0%3A1"> < AiFillCodeSandboxSquare /></a>
 
       </p>
-      <FormControl sx={{ minWidth: "100%" }}>
+      {/* <FormControl sx={{ minWidth: "100%" }}>
 
         <InputLabel id="demo-simple-select-label">Change Recommendaion Model</InputLabel>
         <Select
@@ -59,7 +59,7 @@ const Footer = () => {
           <MenuItem value={2}>Model 2</MenuItem>
           <MenuItem value={3}>Model 3</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
 
       <h5>User Historial: <button onClick={resetHistorial} >Reset Historial</button> </h5>
 

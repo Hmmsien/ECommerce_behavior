@@ -11,6 +11,8 @@ import { useStateContext } from '../../context/StateContext'
 import Link from 'next/link'
 
 
+const RECOMMENDATIONS = 20;
+
 const ProductDetails = ({ product, products, sameCategoryProducts }) => {
     const router = useRouter()
     const { img_src, product_name, price, count } = product;
@@ -28,7 +30,7 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
         // populateBanners();
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             // console.log(response);
-            getRecommendations();
+            getRecommendations(RECOMMENDATIONS);
             updateHistorial();
         })
 
@@ -146,7 +148,6 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
 
-    const RECOMMENDATIONS = 20;
 
     const res = await fetch(`${base}/product_slug/${slug}`)
     const product = await res.json()

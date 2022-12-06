@@ -27,7 +27,7 @@ with header_description:
     st.markdown('<p class="des">This data was collected by Open CDP project. This file contains behavior data for 7 months (from October 2019 to April 2020) from a large multi-category online store. We only work on the first 10 million rows of the 2019-Nov csv file.. </p>',unsafe_allow_html=True)
 
 # Loading data
-df = pd.read_csv('dist-data/2019-Nov.csv', nrows=1000000, error_bad_lines=False)
+df = pd.read_csv('dist-data/2019-Nov-dist.csv', nrows=1000000, error_bad_lines=False)
     
 expander = st.expander("eCommerce behavior data from multi category store")
 with expander:

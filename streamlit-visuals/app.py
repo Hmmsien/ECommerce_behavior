@@ -12,7 +12,7 @@ st.markdown(""" <style>
 .des {color: #FF9633; text-align:justify; font-size:18px ;}
 </style> """, unsafe_allow_html=True)
 
-image = Image.open('img/profile.jpg')
+#image = Image.open('img/profile.jpg')
 
 with st.sidebar:
     st.subheader('About our data')

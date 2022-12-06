@@ -9,7 +9,7 @@ import { useStateContext } from '../../context/StateContext'
 import Link from 'next/link'
 
 
-const RECOMMENDATIONS = 6000;
+const RECOMMENDATIONS = 20;
 
 const ProductDetails = ({ product, products, sameCategoryProducts }) => {
     const router = useRouter()
@@ -129,8 +129,8 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
 
 export const getStaticPaths = async () => {
 
-    // const SEEK_STATIC = 5200
-    const SEEK_STATIC = 10
+    const SEEK_STATIC = 100
+    // const SEEK_STATIC = 10
     const res = await fetch(`${base}/product?skip=0&limit=${SEEK_STATIC}`)
     const products = await res.json()
 

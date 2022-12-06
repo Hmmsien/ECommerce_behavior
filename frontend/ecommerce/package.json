@@ -32,5 +32,8 @@
   },
   "devDependencies": {
     "raw-loader": "^4.0.2"
+  },
+  "resolutions": {
+    "cssnano-preset-simple": "3.0.0"
   }
 }

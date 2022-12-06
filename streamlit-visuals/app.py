@@ -30,7 +30,7 @@ with header_description:
 
 # Loading data
 
-file = Path(__file__).parent.parent.resolve() / 'dist-data/2019-Nov-dist.csv'
+file = Path(__file__).parent.resolve() / 'dist-data/2019-Nov-dist.csv'
 df = pd.read_csv(file, nrows=1000000, error_bad_lines=False)
 
     

@@ -22,7 +22,6 @@ main: build-commit ft-push
 
 build-commit:
 	yarn run build
-	yarn run export
 	git add --all
 	git commit -m "Production update | ${v}"	
 	git push origin HEAD

@@ -3,12 +3,13 @@ import pandas as pd
 from PIL import Image
 import plotly.express as px
 from streamlit_echarts import st_echarts
+import json
 
 st.set_page_config(layout="wide", page_title="About Us")
 
 st.markdown(""" <style> 
 .font {font-size:50px ; font-family: 'Cooper Black'; color: #FF9633;} 
-.des {color: #FF9633; text-align:justify; font-size:20px ;}
+.des {color: #FF9633; text-align:justify; font-size:18px ;}
 </style> """, unsafe_allow_html=True)
 
 image = Image.open('img/profile.jpg')
@@ -42,6 +43,10 @@ with expander:
 
 
 col1, col2=st.columns(2)
+
+df_event_type = df['event_type'].value_counts().rename_axis('event_type_group').reset_index(name='counts')
+jsn_string = df_event_type.to_json(orient='values')
+jsn_list = json.loads(jsn_string)
 
 with col1:
     df_event_type = df['event_type'].value_counts().rename_axis('event_type_group').reset_index(name='counts')
@@ -79,9 +84,9 @@ with col1:
                 "show": "false"
             },
             "data": [
-                {"value": 95.9, "name": 'View'},
-                {"value": 2.05, "name": 'Cart'},
-                {"value": 2.07, "name": 'Purchase'}
+                {"value": 596558, "name": 'View'},
+                {"value": 12867, "name": 'Cart'},
+                {"value": 12736, "name": 'Purchase'}
             ]
         }
     ]

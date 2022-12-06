@@ -7,3 +7,4 @@ seaborn
 dash
 plotly
 Pillow
+streamlit_echarts

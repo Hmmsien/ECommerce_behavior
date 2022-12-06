@@ -1,6 +1,4 @@
 
-PAGE=https://brooklynslcouncil.com
-
 # Prototype FTP
 # FTP_HOST=wangnancy.com
 # FTP_USER=admin@slc-prototype.evildorm.com
@@ -64,7 +62,7 @@ mastermerge-deployment:
 	git checkout ${THIS_BRANCH}
 
 ft-push:
-	git ftp push 
+	git ftp push --force
 	echo "open in ${PAGE}" && git log -n 2
 	
 ft-configpush:

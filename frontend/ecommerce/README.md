@@ -4,6 +4,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
+Installing
+
+```bash
+yarn
+# You might have some issues installing material icons. Try: 
+yarn add @material-ui/icons --network-timeout 500000
+
+```
+
+
 ```bash
 npm run dev
 # or

@@ -18,13 +18,13 @@ with st.sidebar:
     st.subheader('About our data')
 
 st.markdown('<p class="font">ECommerce Behavior</p>',unsafe_allow_html=True)
-header_image, header_description = st.columns((4, 1))
+#header_image, header_description = st.columns((4, 1))
 
-with header_image:
-    st.image(image)
+#with header_image:
+ #   st.image(image)
 
-with header_description:
-    st.markdown('<p class="des">This data was collected by Open CDP project. This file contains behavior data for 7 months (from October 2019 to April 2020) from a large multi-category online store. We only work on the first 10 million rows of the 2019-Nov csv file.. </p>',unsafe_allow_html=True)
+#with header_description:
+ #   st.markdown('<p class="des">This data was collected by Open CDP project. This file contains behavior data for 7 months (from October 2019 to April 2020) from a large multi-category online store. We only work on the first 10 million rows of the 2019-Nov csv file.. </p>',unsafe_allow_html=True)
 
 # Loading data
 df = pd.read_csv('../data/2019-Nov.csv', nrows=1000000, error_bad_lines=False)

@@ -9,7 +9,7 @@ import { useStateContext } from '../../context/StateContext'
 import Link from 'next/link'
 
 
-const RECOMMENDATIONS = 20;
+const RECOMMENDATIONS = 6000;
 
 const ProductDetails = ({ product, products, sameCategoryProducts }) => {
     const router = useRouter()

@@ -129,7 +129,8 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
 
 export const getStaticPaths = async () => {
 
-    const SEEK_STATIC = 5200
+    // const SEEK_STATIC = 5200
+    const SEEK_STATIC = 20
     const res = await fetch(`${base}/product?skip=0&limit=${SEEK_STATIC}`)
     const products = await res.json()
 

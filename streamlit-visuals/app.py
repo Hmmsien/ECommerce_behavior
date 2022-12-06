@@ -3,6 +3,8 @@ import pandas as pd
 from PIL import Image
 import plotly.express as px
 from streamlit_echarts import st_echarts
+
+from pathlib import Path
 import json
 
 st.set_page_config(layout="wide", page_title="About Us")
@@ -12,7 +14,9 @@ st.markdown(""" <style>
 .des {color: #FF9633; text-align:justify; font-size:18px ;}
 </style> """, unsafe_allow_html=True)
 
-image = Image.open('img/profile.jpg')
+
+image_file = Path(__file__).parent.resolve() / 'img/profile.jpg'
+image = Image.open(image_file)
 
 with st.sidebar:
     st.subheader('About our data')
@@ -27,7 +31,10 @@ with header_description:
     st.markdown('<p class="des">This data was collected by Open CDP project. This file contains behavior data for 7 months (from October 2019 to April 2020) from a large multi-category online store. We only work on the first 10 million rows of the 2019-Nov csv file.. </p>',unsafe_allow_html=True)
 
 # Loading data
-df = pd.read_csv('../data/2019-Nov.csv', nrows=1000000, error_bad_lines=False)
+
+file = Path(__file__).parent.resolve() / 'dist-data/2019-Nov-dist.csv'
+df = pd.read_csv(file, nrows=1000000, error_bad_lines=False)
+
     
 expander = st.expander("eCommerce behavior data from multi category store")
 with expander:

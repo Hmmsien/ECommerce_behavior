@@ -6,5 +6,5 @@ lxml
 seaborn
 dash
 plotly
-streamlit_echarts
 Pillow
+streamlit_echarts

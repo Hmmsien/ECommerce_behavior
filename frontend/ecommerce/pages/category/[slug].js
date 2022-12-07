@@ -30,12 +30,12 @@ const CategoriesGallery = ({ products, categoryTitle }) => {
 }
 
 export const getStaticPaths = async () => {
-    const PATHS_TO_CREATE = 5820;
+    const PATHS_TO_CREATE = 500;
     const res = await fetch(`${base_local}/product_category/?limit=${PATHS_TO_CREATE}`)
     const res_categories = await res.json()
     const paths = res_categories.map((res_category) => ({
         params: {
-            slug: product.slug || "auto-accessories-compressor"
+            slug: product.slug 
         }
     }))
     return {

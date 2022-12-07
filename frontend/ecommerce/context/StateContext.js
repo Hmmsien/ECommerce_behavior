@@ -81,7 +81,7 @@ export const StateContext = ({ children }) => {
 
     }
 
-    const getRecommendations = (recomendationCount = 5) => {
+    const getRecommendations = (recomendationCount ) => {
         axios.get(`${base}/ecommerce/recommendations_products/${sessionID}?limit=${recomendationCount}`).then(res => {
             const recProducts = res.data;
             setRecommendations(recProducts);

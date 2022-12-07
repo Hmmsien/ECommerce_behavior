@@ -129,8 +129,8 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
 
 export const getStaticPaths = async () => {
 
-    // const SEEK_STATIC = 5200
-    const SEEK_STATIC = 10
+    const SEEK_STATIC = 5300
+    // const SEEK_STATIC = 10
     const res = await fetch(`${base}/product?skip=0&limit=${SEEK_STATIC}`)
     const products = await res.json()
 
@@ -150,13 +150,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
 
 
-    const res = await fetch(`${base}/product_slug/${slug}`)
+    const res = await fetch(`${base_local}/product_slug/${slug}`)
     const product = await res.json()
 
-    const resRecommendation = await fetch(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=${RECOMMENDATIONS}`)
+    const resRecommendation = await fetch(`${base_local}/ecommerce/recommendations_detail_product/${product.product_id}?limit=${RECOMMENDATIONS}`)
     const products = await resRecommendation.json()
 
-    const resSameCategory = await fetch(`${base}/product_category/${product.category_code}?limit=${RECOMMENDATIONS}`)
+    const resSameCategory = await fetch(`${base_local}/product_category/${product.category_code}?limit=${RECOMMENDATIONS}`)
     const sameCategoryProducts = await resSameCategory.json()
 
     console.log("sameCategoryProducts", sameCategoryProducts)

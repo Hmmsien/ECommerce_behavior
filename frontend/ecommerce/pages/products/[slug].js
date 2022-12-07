@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
-import { base } from '../../lib/client_fast'
+import { base, base_local } from '../../lib/client_fast'
 import { ProductSQL } from '../../components'
 import { useStateContext } from '../../context/StateContext'
 import Link from 'next/link'
@@ -130,7 +130,7 @@ const ProductDetails = ({ product, sameCategoryProducts }) => {
 
 export const getStaticPaths = async () => {
 
-    const SEEK_STATIC = 52
+    const SEEK_STATIC = 500
     // const SEEK_STATIC = 30
     const res = await fetch(`${base}/product?skip=0&limit=${SEEK_STATIC}`)
     const products = await res.json()
@@ -138,7 +138,7 @@ export const getStaticPaths = async () => {
     // const products = await client.fetch(query)
     const paths = products.map((product) => ({
         params: {
-            slug: product.slug
+            slug: product.slug || "auto-accessories-compressor"
         }
     }))
     return {
@@ -150,8 +150,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
 
+    console.log("Building for slug", slug)
 
-    const res = await fetch(`${base}/product_slug/${slug}`)
+    const res = await fetch(`${base_local}/product_slug/${slug}`)
     const product = await res.json()
 
     // What I can do for category and product slug is that product slug is something I can get from the json.
@@ -159,8 +160,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
     // const products = await resRecommendation.json()
 
     // And here in product category I can get the basic from the json as well.
-    const resSameCategory = await fetch(`${base}/product_category/${product.category_code}?limit=${RECOMMENDATIONS}`)
-    const sameCategoryProducts = await resSameCategory.json()
+    // const resSameCategory = await fetch(`${base}/product_category/${product.category_code}?limit=${RECOMMENDATIONS}`)
+    // const sameCategoryProducts = await resSameCategory.json()
+    const sameCategoryProducts = []
 
 
     return {

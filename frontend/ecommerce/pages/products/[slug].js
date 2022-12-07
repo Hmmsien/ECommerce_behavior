@@ -11,11 +11,11 @@ import Link from 'next/link'
 
 const RECOMMENDATIONS = 20;
 
-const ProductDetails = ({ product, products, sameCategoryProducts }) => {
+const ProductDetails = ({ product, sameCategoryProducts }) => {
     const router = useRouter()
     const { img_src, product_name, price, count } = product;
     const [index, setIndex] = useState(0);
-    const { decQty, incQty, qty, onAdd, sessionID, onPurchase, setQty, updateHistorial, getRecommendations, historialRecommendations } = useStateContext();
+    const { decQty, incQty, qty, onAdd, sessionID, onPurchase, setQty, updateHistorial, getRecommendations, historialRecommendations, populateProductRecomendation, productRecomendations } = useStateContext();
 
     useEffect(() => {
         const interaction = {
@@ -29,6 +29,7 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
         axios.post(`${base}/interaction`, interaction).then(function (response) {
             // console.log(response);
             getRecommendations(RECOMMENDATIONS);
+            populateProductRecomendation(product.product_id , RECOMMENDATIONS);
             updateHistorial();
         })
 
@@ -94,12 +95,12 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
                 </div>
             </div>
             {
-                products &&
+                productRecomendations &&
                 (<div className="maylike-products-wrapper">
                     <h2>Other users also searched for...</h2>
                     <div className="marquee">
                         <div className="maylike-products-container track">
-                            {products.map((item) => (
+                            {productRecomendations.map((item) => (
                                 <ProductSQL key={item.id} product={item} />
                             ))}
                         </div>
@@ -129,8 +130,8 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
 
 export const getStaticPaths = async () => {
 
-    // const SEEK_STATIC = 5200
-    const SEEK_STATIC = 10
+    const SEEK_STATIC = 52
+    // const SEEK_STATIC = 30
     const res = await fetch(`${base}/product?skip=0&limit=${SEEK_STATIC}`)
     const products = await res.json()
 
@@ -153,16 +154,17 @@ export const getStaticProps = async ({ params: { slug } }) => {
     const res = await fetch(`${base}/product_slug/${slug}`)
     const product = await res.json()
 
-    const resRecommendation = await fetch(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=${RECOMMENDATIONS}`)
-    const products = await resRecommendation.json()
+    // What I can do for category and product slug is that product slug is something I can get from the json.
+    // const resRecommendation = await fetch(`${base}/ecommerce/recommendations_detail_product/${product.product_id}?limit=${RECOMMENDATIONS}`)
+    // const products = await resRecommendation.json()
 
+    // And here in product category I can get the basic from the json as well.
     const resSameCategory = await fetch(`${base}/product_category/${product.category_code}?limit=${RECOMMENDATIONS}`)
     const sameCategoryProducts = await resSameCategory.json()
 
-    console.log("sameCategoryProducts", sameCategoryProducts)
 
     return {
-        props: { product, products, sameCategoryProducts }
+        props: { product, sameCategoryProducts }
     }
 
 }

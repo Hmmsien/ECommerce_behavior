@@ -18,6 +18,8 @@ export const StateContext = ({ children }) => {
     const [sessionID, setSessionID] = useState(uuidv4);
     const [historial, setHistorial] = useState([]);
     const [historialRecommendations, setRecommendations] = useState([]);
+    const [productRecomendations, setProductRecomendations] = useState([]);
+    
 
     let foundProduct;
     let index;
@@ -53,10 +55,10 @@ export const StateContext = ({ children }) => {
     const populateBanners = () => {
         axios.get(`${base}/ecommerce/recommended_category/${sessionID}?limit=2`).then(res => {
             const resBanners = res.data;
-            
-            
+
+
             console.log("resBanners", resBanners);
-            if(resBanners){
+            if (resBanners) {
                 setBanners(resBanners);
             }
             console.log("setted banners on the state", banners);
@@ -68,7 +70,7 @@ export const StateContext = ({ children }) => {
         axios.get(`${base}/ecommerce/historial/${sessionID}`).then(res => {
             const resHistorial = res.data;
             setHistorial(resHistorial);
-            console.log("historial", historial);
+            // console.log("historial", historial);
             // // setHistorial
         })
     }
@@ -81,11 +83,20 @@ export const StateContext = ({ children }) => {
 
     }
 
+    const populateProductRecomendation = (product_id = "",recomendationCount = 5) => {
+        axios.get(`${base}/ecommerce/recommendations_detail_product/${product_id}?limit=${recomendationCount}`).then(res => {
+            const recProducts = res.data;
+            setProductRecomendations(recProducts)
+
+        })
+
+    }
+
     const getRecommendations = (recomendationCount = 5) => {
         axios.get(`${base}/ecommerce/recommendations_products/${sessionID}?limit=${recomendationCount}`).then(res => {
             const recProducts = res.data;
             setRecommendations(recProducts);
-            console.log("recommendations", historialRecommendations)
+            // console.log("recommendations", historialRecommendations)
         })
     }
 
@@ -228,7 +239,9 @@ export const StateContext = ({ children }) => {
             resetHistorial,
             banners,
             populateBanners,
-            setBanners
+            setBanners,
+            populateProductRecomendation,
+            productRecomendations
 
         }} >
             {children}

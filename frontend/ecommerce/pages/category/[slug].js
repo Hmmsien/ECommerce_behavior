@@ -35,7 +35,7 @@ export const getStaticPaths = async () => {
     const res_categories = await res.json()
     const paths = res_categories.map((res_category) => ({
         params: {
-            slug: product.slug 
+            slug: res_category.slug 
         }
     }))
     return {

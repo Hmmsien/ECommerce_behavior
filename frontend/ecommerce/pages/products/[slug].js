@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
-import { base } from '../../lib/client_fast'
+import { base, base_local } from '../../lib/client_fast'
 import { ProductSQL } from '../../components'
 import { useStateContext } from '../../context/StateContext'
 import Link from 'next/link'
@@ -129,9 +129,9 @@ const ProductDetails = ({ product, products, sameCategoryProducts }) => {
 
 export const getStaticPaths = async () => {
 
-    const SEEK_STATIC = 5300
+    const SEEK_STATIC = 8000
     // const SEEK_STATIC = 10
-    const res = await fetch(`${base}/product?skip=0&limit=${SEEK_STATIC}`)
+    const res = await fetch(`${base_local}/product?skip=0&limit=${SEEK_STATIC}`)
     const products = await res.json()
 
     // const products = await client.fetch(query)
@@ -149,17 +149,15 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
 
-
+    console.log(`Getting Static props for ${slug}`)
     const res = await fetch(`${base_local}/product_slug/${slug}`)
     const product = await res.json()
-
     const resRecommendation = await fetch(`${base_local}/ecommerce/recommendations_detail_product/${product.product_id}?limit=${RECOMMENDATIONS}`)
     const products = await resRecommendation.json()
-
     const resSameCategory = await fetch(`${base_local}/product_category/${product.category_code}?limit=${RECOMMENDATIONS}`)
     const sameCategoryProducts = await resSameCategory.json()
 
-    console.log("sameCategoryProducts", sameCategoryProducts)
+    // console.log("sameCategoryProducts", sameCategoryProducts)
 
     return {
         props: { product, products, sameCategoryProducts }

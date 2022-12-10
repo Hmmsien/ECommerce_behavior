@@ -1,5 +1,9 @@
 # ECommerce_behavior
 
+## Links
+
+- [Backend repository](https://github.com/NeneWang/ctp-ecommerce-fastapi) 
+
 ## :notebook: Description 
 
 Data Science visualization project using ecommerce data. Analyze data which is about e-commerce customer behavior. \

@@ -15,7 +15,7 @@
 make s-front
 ```
 
-2.b Otherwise run the following form root
+2.b Otherwise run the following from root
 ```
 cd frontend/ecommerce
 yarn install

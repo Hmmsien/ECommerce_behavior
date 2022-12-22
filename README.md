@@ -1,5 +1,31 @@
 # ECommerce_behavior
 
+## Trying it out
+
+- [Front end](https://ecommerce.wangnelson.xyz/)
+- [Backend](https://cjmpbdbwic.us-east-1.awsapprunner.com/docs)
+
+
+## Running Locally
+
+1. clone this repository Follow it's instructions to run the backend on local machine.
+- [Backend repository](https://github.com/NeneWang/ctp-ecommerce-fastapi) 
+2. Run the following command (if you have GNU make installed)
+```
+make s-front
+```
+
+2.b Otherwise run the following form root
+```
+cd frontend/ecommerce
+yarn install
+yarn run dev
+```
+
+
+
+
+
 ## Links
 
 - [Backend repository](https://github.com/NeneWang/ctp-ecommerce-fastapi) 

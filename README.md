@@ -6,7 +6,7 @@
 - [Backend](https://cjmpbdbwic.us-east-1.awsapprunner.com/docs)
 
 
-## Running Locally
+## Running it locally
 
 1. clone this repository Follow it's instructions to run the backend on local machine.
 - [Backend repository](https://github.com/NeneWang/ctp-ecommerce-fastapi) 

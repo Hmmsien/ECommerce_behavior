@@ -8,7 +8,7 @@
 
 ## Running it locally
 
-1. clone this repository Follow it's instructions to run the backend on local machine.
+1. Clone this repository and follow the instructions to run the backend on local machine.
 - [Backend repository](https://github.com/NeneWang/ctp-ecommerce-fastapi) 
 2. Run the following command (if you have GNU make installed)
 ```

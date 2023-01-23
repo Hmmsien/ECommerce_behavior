@@ -1,5 +1,9 @@
 # ECommerce_behavior
 
+## Watch our Demo
+
+[Watch our demo in Yourube](https://youtu.be/smpj1Djo8oo)
+
 ## Trying it out
 
 - [Front end](https://ecommerce.wangnelson.xyz/)

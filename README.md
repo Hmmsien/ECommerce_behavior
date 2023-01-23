@@ -4,8 +4,9 @@
 
 ![image](https://user-images.githubusercontent.com/29577570/214152850-342421e7-5e2f-48bd-a841-bb00c3e7edba.png)
 
-
 [Watch our demo in Youtube](https://youtu.be/smpj1Djo8oo)
+
+[Slide Deck 👨‍🏫](https://www.canva.com/design/DAFSEXC8NXc/uGN-08f5bnYUjspJhzpOXQ/view?utm_content=DAFSEXC8NXc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Trying it out
 
